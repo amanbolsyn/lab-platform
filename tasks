@@ -1,0 +1,41 @@
+Endpoints: 
+
+Session 
+GET /login load login page
+POST /login create new session 
+POST /logout destroy the session 
+
+Register
+GET /register load register page
+POST /register  create new user 
+
+Dashboard 
+GET /dashboard load dashboard page 
+
+Users
+GET /user/:id load users profile 
+GET /user/:id/orders load users order history 
+
+Orders
+
+
+
+
+ERD/DB design DONE 
+   -> migrations/seeders/factories
+   -> CRUD inventory 
+   -> authentication 
+   -> authorization
+   -> dashboard/user profile 
+   -> photo and document storage
+   -> rate limiting, pagination 
+   -> cors, security 
+   -> CI/CD, dockerazation 
+
+
+
+
+
+
+
+
