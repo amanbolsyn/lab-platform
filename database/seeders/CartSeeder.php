@@ -2,18 +2,17 @@
 
 namespace Database\Seeders;
 
-use App\Models\Inventory;
-use App\Models\Order;
+use App\Models\Cart as ModelsCart;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class InventorySeeder extends Seeder
+class CartSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        Inventory::factory(10)->create();
+        ModelsCart::factory(10)->create(); 
     }
 }

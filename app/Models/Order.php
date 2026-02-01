@@ -10,15 +10,16 @@ class Order extends Model
 
    use HasFactory;
 
-    public const STATUS_LEVELS = ['pending', 'approved', 'rejected', 'returned'];
+    //order belongs to one cart 
+    //order has one item
 
-    public function user()
+    public function cart()
     {
-        return $this->hasOne(User::class);
+        return $this->belongsTo(Cart::class);
     }
 
     public function item()
     {
-        return $this->hasOne(Inventory::class);
+        return $this->hasOne(Item::class);
     }
 }

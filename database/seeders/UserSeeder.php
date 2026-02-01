@@ -31,6 +31,5 @@ class UserSeeder extends Seeder
 
         $admin->roles()->attach($adminRole->id);
 
-
     }
 }

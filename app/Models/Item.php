@@ -5,10 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Inventory extends Model
+class Item extends Model
 {
 
-   protected $table = 'inventory';
    public $timestamps = false;
 
    use HasFactory;

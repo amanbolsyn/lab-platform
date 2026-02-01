@@ -1,28 +1,35 @@
 Endpoints: 
 
 Session 
-GET /login load login page
-POST /login create new session 
-POST /logout destroy the session 
+GET /login load login page | user
+POST /login create new session | user
+POST /logout destroy the session | user
 
 Register
-GET /register load register page
-POST /register  create new user 
+GET /register load register page | user
+POST /register  create new user | user
 
 Dashboard 
-GET /dashboard load dashboard page 
+GET /dashboard load dashboard page | admin
 
-Users
-GET /user/:id load users profile 
-GET /user/:id/orders load users order history 
+Users *user can only load hist own profile and change it
+GET /user/:id load users profile |user admin
+PUT user/:id change user information | user admin
+GET /user/:id/orders load users order history | user admin
 
 Orders
+POST /order create an order | user
+PUT /order/:id change order status | admin
 
-
+Inventory
+GET / load inventory | user admin 
+POST /item create new item | admin
+PUT /item/:id update an item | admin
+DELETE /item/:id delete an item | admin 
 
 
 ERD/DB design DONE 
-   -> migrations/seeders/factories
+   -> migrations/seeders/factories DONE
    -> CRUD inventory 
    -> authentication 
    -> authorization
@@ -31,6 +38,7 @@ ERD/DB design DONE
    -> rate limiting, pagination 
    -> cors, security 
    -> CI/CD, dockerazation 
+
 
 
 

@@ -2,9 +2,8 @@
 
 namespace Database\Factories;
 
-use App\Models\Inventory;
-use App\Models\Order;
-use App\Models\User;
+use App\Models\Cart;
+use App\Models\Item;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -21,12 +20,9 @@ class OrderFactory extends Factory
     {
 
         return [
-            'user_id' => User::inRandomOrder()->value('id'),
-            'item_id' => Inventory::inRandomOrder()->value('id'),
+            'cart_id' => Cart::inRandomOrder()->value('id'),
+            'item_id' => Item::inRandomOrder()->value('id'),
             'quantity' => fake()->randomDigit(4),
-            'purpose' => fake()->sentence(10),
-            'status' => fake()->randomElement(Order::STATUS_LEVELS),
-            'due_date' => fake()->dateTimeBetween('now', '+5 days')
         ];
     }
 }
