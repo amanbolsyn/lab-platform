@@ -6,7 +6,12 @@ use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
-       /**
+
+    public function create(){
+        return view("register.create"); 
+    }
+    
+    /**
      * Display a listing of the resource.
      */
     public function index()

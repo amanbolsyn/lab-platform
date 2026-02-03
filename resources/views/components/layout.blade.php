@@ -19,7 +19,11 @@
             </style>
         @endif
     </head>
-    <body>
-      
+    <body class="min-h-screen flex flex-col bg-[#f9fafb]"> 
+        <x-navbar/>
+        <main class="flex-grow">
+          {{ $slot }}
+        </main>
+        <x-footer/>
     </body>
 </html>

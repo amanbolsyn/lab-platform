@@ -30,14 +30,14 @@ DELETE /item/:id delete an item | admin
 
 ERD/DB design DONE 
    -> migrations/seeders/factories DONE
-   -> CRUD inventory 
-   -> authentication 
-   -> authorization
-   -> dashboard/user profile 
-   -> photo and document storage
-   -> rate limiting, pagination 
-   -> cors, security 
-   -> CI/CD, dockerazation 
+   -> create basic page layouts/components 2 Feb
+   -> CRUD items / 3 Feb 
+   -> authentication authorization / 4-5 Feb
+   -> dashboard/user profile / 6 Feb
+   -> photo and document storage / 7-8 Feb
+   -> rate limiting, pagination / 10 Feb
+   -> cors, security / 10 Feb
+   -> CI/CD, dockerazation 11-12 Feb 
 
 
 

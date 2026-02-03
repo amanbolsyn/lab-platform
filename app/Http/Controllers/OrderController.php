@@ -6,7 +6,12 @@ use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
-       /**
+
+    public function create() {
+        return view("order.create");
+    }
+    
+    /**
      * Display a listing of the resource.
      */
     public function index()
