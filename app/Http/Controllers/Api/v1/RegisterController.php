@@ -1,17 +1,18 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api\v1;
 
 use Illuminate\Http\Request;
 
-class ItemController extends Controller
+class RegisterController extends Controller
 {
-       /**
+
+    /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view("item.index"); 
+        //
     }
 
     /**

@@ -1,42 +1,42 @@
 <?php
 
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\ItemController;
-use App\Http\Controllers\OrderController;
-use App\Http\Controllers\RegisterController;
-use App\Http\Controllers\SessionController;
-use Illuminate\Support\Facades\Route;
+// use App\Http\Controllers\DashboardController;
+// use App\Http\Controllers\ItemController;
+// use App\Http\Controllers\OrderController;
+// use App\Http\Controllers\RegisterController;
+// use App\Http\Controllers\SessionController;
+// use Illuminate\Support\Facades\Route;
 
 
-// register routes
-Route::get('/register', [RegisterController::class, 'create']); 
-Route::post('/register' , [RegisterController::class, 'store']);
+// // register routes
+// Route::get('/register', [RegisterController::class, 'create']); 
+// Route::post('/register' , [RegisterController::class, 'store']);
 
-// session routes
-Route::get('/login', [SessionController::class, 'create']); 
-Route::post('/login' , [SessionController::class, 'store']);
-Route::delete('/logout' , [SessionController::class, 'destroy']);
-
-
-// items routes
-Route::get('/', [ItemController::class, 'index']);
-Route::get('/item/{item}', [ItemController::class, 'show']);
-Route::get('/item/create', [ItemController::class, 'create']);
-Route::post('/item', [ItemController::class, 'store']);
-Route::get('/item/{item}/edit', [ItemController::class, 'edit']);
-Route::put('/item/{item}', [ItemController::class, 'update']);
-Route::delete('/item/{item}', [ItemController::class, 'destroy']);
+// // session routes
+// Route::get('/login', [SessionController::class, 'create']); 
+// Route::post('/login' , [SessionController::class, 'store']);
+// Route::delete('/logout' , [SessionController::class, 'destroy']);
 
 
-// order routes
-Route::get('/orders', [OrderController::class, 'index']); 
-Route::get('/order/{order}', [OrderController::class, 'show']); 
-Route::get('/cart', [OrderController::class, 'create']);
-Route::post('/order/create', [OrderController::class, 'store']); 
-Route::get('/order/{order}/edit', [OrderController::class, 'edit']); 
-Route::put('/order/{order}', [OrderController::class, 'update']); 
-Route::delete('/order/{order}', [OrderController::class, 'destroy']);
+// // items routes
+// Route::get('/', [ItemController::class, 'index']);
+// Route::get('/item/{item}', [ItemController::class, 'show']);
+// Route::get('/item/create', [ItemController::class, 'create']);
+// Route::post('/item', [ItemController::class, 'store']);
+// Route::get('/item/{item}/edit', [ItemController::class, 'edit']);
+// Route::put('/item/{item}', [ItemController::class, 'update']);
+// Route::delete('/item/{item}', [ItemController::class, 'destroy']);
 
 
-// dashboard
-Route::get('/dashboard', [DashboardController::class, 'index']);
+// // order routes
+// Route::get('/orders', [OrderController::class, 'index']); 
+// Route::get('/order/{order}', [OrderController::class, 'show']); 
+// Route::get('/cart', [OrderController::class, 'create']);
+// Route::post('/order/create', [OrderController::class, 'store']); 
+// Route::get('/order/{order}/edit', [OrderController::class, 'edit']); 
+// Route::put('/order/{order}', [OrderController::class, 'update']); 
+// Route::delete('/order/{order}', [OrderController::class, 'destroy']);
+
+
+// // dashboard
+// Route::get('/dashboard', [DashboardController::class, 'index']);
