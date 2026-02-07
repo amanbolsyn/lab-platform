@@ -14,12 +14,13 @@ Route::prefix('v1')->group(function () {
 
     // session routes
     Route::post('/login', [SessionController::class, 'store']);
-    Route::delete('/logout', [SessionController::class, 'destroy']);
+    Route::middleware("auth:sanctum")->post('/logout', [SessionController::class, 'destroy']);
 
-
+ 
     // items routes
-    Route::get('/', [ItemController::class, 'index']);
-    Route::get('/item/{item}', [ItemController::class, 'show']);
+    Route::middleware("auth:sanctum")->get('/', [ItemController::class, 'index']);
+    Route::middleware("auth:sanctum")->get('/item/{item}', [ItemController::class, 'show'])
+      ->name('item.show');
     Route::post('/item', [ItemController::class, 'store']);
     Route::put('/item/{item}', [ItemController::class, 'update']);
     Route::delete('/item/{item}', [ItemController::class, 'destroy']);

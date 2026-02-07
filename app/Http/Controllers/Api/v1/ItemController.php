@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\v1;
 
+use App\Http\Resources\v1\ItemResource;
 use App\Models\Item;
 use Illuminate\Http\Request;
 
@@ -12,7 +13,7 @@ class ItemController extends Controller
      */
     public function index()
     {
-        return Item::all(); 
+        return ItemResource::collection(Item::paginate()); 
     }
 
     /**
@@ -26,9 +27,9 @@ class ItemController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Item $item)
     {
-        //
+        return new ItemResource($item); 
     }
 
     /**
