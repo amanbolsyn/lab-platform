@@ -19,7 +19,9 @@ class Item extends Model
     ];
 
 
-    public function orders(){
-        return $this->hasMay(Order::class);
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
     }
+
 }

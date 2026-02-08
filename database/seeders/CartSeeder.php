@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Cart as ModelsCart;
+use App\Models\Cart;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -13,6 +13,6 @@ class CartSeeder extends Seeder
      */
     public function run(): void
     {
-        ModelsCart::factory(10)->create(); 
+        Cart::factory(10)->create(); 
     }
 }

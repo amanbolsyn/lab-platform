@@ -2,18 +2,18 @@
 
 namespace App\Http\Controllers\Api\v1;
 
-use App\Http\Resources\v1\ItemResource;
+use App\Http\Resources\Api\v1\ItemResource;
 use App\Models\Item;
 use Illuminate\Http\Request;
 
 class ItemController extends Controller
 {
-       /**
+    /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return ItemResource::collection(Item::paginate()); 
+        return ItemResource::collection(Item::paginate(15)); 
     }
 
     /**

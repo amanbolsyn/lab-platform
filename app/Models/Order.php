@@ -3,12 +3,14 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\Pivot;
 
-class Order extends Model
+class Order extends Pivot
 {
 
-   use HasFactory;
+    protected $table = 'orders';
+    
+    use HasFactory;
 
     //order belongs to one cart 
     //order has one item
@@ -20,6 +22,6 @@ class Order extends Model
 
     public function item()
     {
-        return $this->hasOne(Item::class);
+        return $this->belongsTo(Item::class);
     }
 }

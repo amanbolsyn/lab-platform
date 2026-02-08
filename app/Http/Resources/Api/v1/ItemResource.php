@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Resources\v1;
+namespace App\Http\Resources\Api\v1;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -19,7 +19,10 @@ class ItemResource extends JsonResource
             'id' => $this->id, 
             'attributes' => [
                 'name' => $this->name, 
-                'description' => $this->description, 
+                'description' => $this->when(
+                    $request->routeIs("item.show"),
+                    $this->description
+                ), 
                 'quantity' => $this->quantity, 
             ], 
             'links' => [

@@ -22,6 +22,7 @@ class UserSeeder extends Seeder
             $user->roles()->attach($userRole->id);
         });
 
+
         // Create one admin
         $admin = User::factory()->create([
             'fullname' => "admin admin",
@@ -29,6 +30,15 @@ class UserSeeder extends Seeder
             'password' => 'admin123', 
         ]);
 
+        // Create one user
+        $user = User::factory()->create([
+            'fullname' => "user user",
+            'email' => 'user@astanait.edu.kz',
+            'password' => 'user123', 
+        ]);
+
+
+        $user->roles()->attach($userRole->id); 
         $admin->roles()->attach($adminRole->id);
 
     }

@@ -14,13 +14,13 @@ class Cart extends Model
     //cart has many orders
     //cart belongs to one user 
 
-    public function orders()
-    {
-        return $this->hasMany(Order::class);
-    }
-
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
     }
 }

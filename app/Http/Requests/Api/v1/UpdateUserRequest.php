@@ -4,14 +4,14 @@ namespace App\Http\Requests\Api\v1;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateSessionRequest extends FormRequest
+class UpdateUserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return true;
+        return false;
     }
 
     /**
@@ -22,18 +22,7 @@ class CreateSessionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => ['required', 'string', 'email', 'ends_with:@astanait.edu.kz'],
-            'password' => ['required', 'string', 'min:6'],
-        ];
-    }
-
-
-    public function messages(): array
-    {
-        return [
-            'email.required'   => 'Email is required.',
-            'email.email'      => 'Invalid email address',
-            'email.ends_with'  => 'Invalid email address',
+            //
         ];
     }
 }
