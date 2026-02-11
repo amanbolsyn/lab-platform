@@ -19,12 +19,12 @@ Route::prefix('v1')->group(function () {
 
 
   // item routes
-  Route::middleware("auth:sanctum")->get('/', [ItemController::class, 'index']);
+  Route::get('/', [ItemController::class, 'index']);
   Route::middleware("auth:sanctum")->get('/item/{item}', [ItemController::class, 'show'])
     ->name('item.show');
-  Route::post('/item', [ItemController::class, 'store']);
-  Route::put('/item/{item}', [ItemController::class, 'update']);
-  Route::delete('/item/{item}', [ItemController::class, 'destroy']);
+  Route::middleware("auth:sanctum")->post('/items', [ItemController::class, 'store']);
+  Route::middleware("auth:sanctum")->put('/item/{item}', [ItemController::class, 'update']);
+  Route::middleware("auth:sanctum")->delete('/item/{item}', [ItemController::class, 'destroy']);
 
 
   //user routes
