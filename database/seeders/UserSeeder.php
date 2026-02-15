@@ -14,9 +14,9 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        $userRole = Role::where('role', 'user');
-        $adminRole = Role::where('role', 'admin'); 
-        $rootRole = Role::where('role','root'); 
+        $userRole = Role::where('role', 'user')->first();
+        $adminRole = Role::where('role', 'admin')->first(); 
+        $rootRole = Role::where('role','root')->first(); 
        
         // Create normal users
         User::factory(10)->create()->each(function ($user) use ($userRole) {
@@ -30,7 +30,6 @@ class UserSeeder extends Seeder
             'email' => 'admin@astanait.edu.kz',
             'password' => 'admin123', 
         ]);
-
 
         // Create one user
         $user = User::factory()->create([

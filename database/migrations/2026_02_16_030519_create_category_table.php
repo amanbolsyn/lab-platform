@@ -20,10 +20,10 @@ return new class extends Migration
         });
 
 
-        Schema::create('item_categories', function(Blueprint $table){
+        Schema::create('category_item', function(Blueprint $table){
             $table->foreignIdFor(Item::class, 'item_id')->constrained()->cascadeOnDelete();
             $table->foreignIdFor(Category::class, 'category_id')->constrained()->cascadeOnDelete();
-            $table->primary('item_id', 'category_id'); 
+            $table->primary(['item_id', 'category_id']); 
         });
     }
 

@@ -7,10 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Program extends Model
 {
-    
-   use HasFactory; 
 
-   public function users(){
-     return $this->belongsToMany(User::class); 
-   }
+  use HasFactory;
+
+  public function users()
+  {
+    return $this->hasMany(User::class);
+  }
 }
