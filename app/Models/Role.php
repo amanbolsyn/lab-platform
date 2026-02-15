@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Role extends Model
 {
-    public const ROLES = ['user', 'admin'];
+    public const ROLES = ['user', 'admin', 'root'];
 
     public function users()
     {

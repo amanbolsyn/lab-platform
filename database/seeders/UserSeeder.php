@@ -14,8 +14,9 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        $userRole = Role::where('role', 'user')->first();
-        $adminRole = Role::where('role', 'admin')->first();
+        $userRole = Role::where('role', 'user');
+        $adminRole = Role::where('role', 'admin'); 
+        $rootRole = Role::where('role','root'); 
        
         // Create normal users
         User::factory(10)->create()->each(function ($user) use ($userRole) {
@@ -30,6 +31,7 @@ class UserSeeder extends Seeder
             'password' => 'admin123', 
         ]);
 
+
         // Create one user
         $user = User::factory()->create([
             'fullname' => "user user",
@@ -37,9 +39,16 @@ class UserSeeder extends Seeder
             'password' => 'user123', 
         ]);
 
+        $root = User::factory()->create([
+            'fullname' => "root", 
+             'email' => 'root@example.com',
+             'password' => 'root123', 
+        ]);
+
 
         $user->roles()->attach($userRole->id); 
         $admin->roles()->attach($adminRole->id);
+        $root->roles()->attach($rootRole->id); 
 
     }
 }
