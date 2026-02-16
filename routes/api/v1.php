@@ -4,6 +4,8 @@ use App\Http\Controllers\Api\v1\RegisterController;
 use App\Http\Controllers\Api\v1\DashboardController;
 use App\Http\Controllers\Api\v1\ItemController;
 use App\Http\Controllers\Api\v1\CartController;
+use App\Http\Controllers\Api\v1\CategoryController;
+use App\Http\Controllers\Api\v1\ProgramController;
 use App\Http\Controllers\Api\V1\SessionController;
 use App\Http\Controllers\Api\v1\UserController;
 use Illuminate\Support\Facades\Route;
@@ -44,4 +46,17 @@ Route::prefix('v1')->group(function () {
 
   // dashboard
   Route::get('/dashboard', [DashboardController::class, 'index']);
+
+
+  //program routes
+  Route::middleware("auth:sanctum")->get('/programs', [ProgramController::class, 'index']);
+  Route::middleware("auth:sanctum")->post('/programs', [ProgramController::class, 'store']);
+  Route::middleware("auth:sanctum")->put('/progrmas/{program}', [ProgramController::class, 'update']);
+  Route::middleware("auth:sanctum")->delete('/progrmas/{program}', [ProgramController::class, 'destory']);
+
+  //category routes
+  Route::middleware("auth:sanctum")->get('/categories', [CategoryController::class, 'index']);
+  Route::middleware("auth:sanctum")->post('/categories', [CategoryController::class, 'store']);
+  Route::middleware("auth:sanctum")->put('/categories/{category}', [CategoryController::class, 'update']);
+  Route::middleware("auth:sanctum")->delete('/categories/{category}', [CategoryController::class, 'destory']);
 });

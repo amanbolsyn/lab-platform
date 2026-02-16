@@ -8,6 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Program extends Model
 {
 
+  protected $fillable = [
+    'name',
+    'code'
+  ];
+
   use HasFactory;
 
   public function users()

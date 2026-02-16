@@ -1,0 +1,48 @@
+<?php
+
+namespace App\Http\Controllers\Api\v1;
+
+use App\Http\Requests\Api\v1\Category\StoreCategoryRequest;
+use App\Http\Requests\Api\v1\Category\UpdateCategoryRequest;
+use App\Http\Resources\Api\v1\CategoryResource;
+use App\Models\Category;
+
+class CategoryController
+{
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        return CategoryResource::collection(Category::paginate(15));
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(StoreCategoryRequest $request)
+    {
+        $model = [
+            "name" => $request->input("data.attributes.name"),
+        ];
+
+        return new CategoryResource(Category::create($model));
+    }
+
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(UpdateCategoryRequest $request, Category $category)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(Category $category)
+    {
+        //
+    }
+}
