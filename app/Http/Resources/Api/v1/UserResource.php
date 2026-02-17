@@ -23,6 +23,7 @@ class UserResource extends JsonResource
                     $request->routeIs("user.show"),
                     $this->email
                 ),
+                'program' => $this->program->name, 
                 'group' => $this->group,
             ],
             'includes' => $this->when(

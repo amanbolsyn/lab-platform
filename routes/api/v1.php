@@ -51,12 +51,12 @@ Route::prefix('v1')->group(function () {
   //program routes
   Route::middleware("auth:sanctum")->get('/programs', [ProgramController::class, 'index']);
   Route::middleware("auth:sanctum")->post('/programs', [ProgramController::class, 'store']);
-  Route::middleware("auth:sanctum")->put('/progrmas/{program}', [ProgramController::class, 'update']);
-  Route::middleware("auth:sanctum")->delete('/progrmas/{program}', [ProgramController::class, 'destory']);
+  Route::middleware("auth:sanctum")->put('/programs/{program}', [ProgramController::class, 'update']);
+  Route::middleware("auth:sanctum")->delete('/programs/{program}', [ProgramController::class, 'destroy']);
 
   //category routes
   Route::middleware("auth:sanctum")->get('/categories', [CategoryController::class, 'index']);
   Route::middleware("auth:sanctum")->post('/categories', [CategoryController::class, 'store']);
   Route::middleware("auth:sanctum")->put('/categories/{category}', [CategoryController::class, 'update']);
-  Route::middleware("auth:sanctum")->delete('/categories/{category}', [CategoryController::class, 'destory']);
+  Route::middleware("auth:sanctum")->delete('/categories/{category}', [CategoryController::class, 'destroy']);
 });

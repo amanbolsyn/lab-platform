@@ -24,7 +24,12 @@ class ItemResource extends JsonResource
                     $this->description
                 ), 
                 'quantity' => $this->quantity, 
-            ], 
+                'external_links' => $this->external_links, 
+                'comment' => $this->comment, 
+            ],
+            'includes' => [
+                CategoryResource::collection($this->categories), //subject to change
+            ] ,
             'links' => [
                 'self' => route("item.show", ['item' => $this->id])
             ]

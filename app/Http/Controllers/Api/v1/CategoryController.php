@@ -2,13 +2,17 @@
 
 namespace App\Http\Controllers\Api\v1;
 
+use App\Traits\ApiResponses;
 use App\Http\Requests\Api\v1\Category\StoreCategoryRequest;
 use App\Http\Requests\Api\v1\Category\UpdateCategoryRequest;
 use App\Http\Resources\Api\v1\CategoryResource;
 use App\Models\Category;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class CategoryController
 {
+
+    use ApiResponses;
     /**
      * Display a listing of the resource.
      */
@@ -43,6 +47,7 @@ class CategoryController
      */
     public function destroy(Category $category)
     {
-        //
+            $category->delete();
+            return $this->success("Category deleted successfully");
     }
 }
