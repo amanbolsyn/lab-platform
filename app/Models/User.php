@@ -48,7 +48,7 @@ class User extends Authenticatable
     }
 
     public function roles(){
-        return $this->belongsToMany(Role::class, 'user_roles');
+        return $this->belongsToMany(Role::class);
     }
 
     public function carts(){
@@ -58,4 +58,13 @@ class User extends Authenticatable
     public function program(){
         return $this->belongsTo(Program::class);
     }
+
+    public function isAdmin(){
+       return $this->roles()->whereIn('role', ['admin', 'root'])->exists();
+    }
+
+    public function isRoot(){
+       return $this->roles()->where('role', 'root')->exists();
+    }
+
 }

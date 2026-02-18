@@ -20,7 +20,7 @@ return new class extends Migration
         });
 
 
-        Schema::create('user_roles', function(Blueprint $table){
+        Schema::create('role_user', function(Blueprint $table){
                 $table->foreignIdFor(User::class, 'user_id')->constrained()->cascadeOnDelete();
                 $table->foreignIdFor(Role::class, 'role_id')->constrained()->cascadeOnDelete();
                 $table->primary(['user_id', 'role_id']);

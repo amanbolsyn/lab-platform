@@ -12,7 +12,7 @@ class RegisterController extends Controller
      */
     public function store(RegisterUserRequest $request)
     {
-        //
+
     }
 
 }

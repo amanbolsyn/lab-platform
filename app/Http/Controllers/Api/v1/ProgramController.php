@@ -8,11 +8,12 @@ use App\Http\Resources\Api\v1\ProgramResource;
 use App\Traits\ApiResponses;
 use App\Models\Program;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\Auth;
 
 class ProgramController
 {
 
-   use ApiResponses; 
+    use ApiResponses;
     /**
      * Display a listing of the resource.
      */
@@ -38,14 +39,24 @@ class ProgramController
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateProgramRequest $request, Program $program) {}
+    public function update(UpdateProgramRequest $request, Program $program)
+    {
+        $model = [
+            "name" => $request->input("data.attributes.name"),
+            "code" => $request->input("data.attributes.code"),
+        ];
+
+        $program->update($model);
+
+        return new ProgramResource($program);
+    }
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(Program $program)
     {
-            $program->delete();
-            return $this->success("Program deleted successfully");
+        $program->delete();
+        return $this->success("Program deleted successfully");
     }
 }

@@ -11,7 +11,7 @@ class UpdateCategoryRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,15 @@ class UpdateCategoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            "data.attributes.name" => 'required|string',
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            "data.attributes.name.required" => 'The category name is required',
+            "data.attributes.name.string" => 'The category name has to be a string',
         ];
     }
 }

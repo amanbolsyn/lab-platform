@@ -31,6 +31,6 @@ class UserController
      */
     public function update(UpdateUserRequest $request, User $user)
     {
-        //
+        
     }
 }

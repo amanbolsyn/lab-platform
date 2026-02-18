@@ -11,7 +11,7 @@ class UpdateProgramRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,19 @@ class UpdateProgramRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            "data.attributes.name" => 'required|string',
+            "data.attributes.code" => 'required|string',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            "data.attributes.name.required" => 'The program name is required',
+            "data.attributes.code.required" => 'The program code is required',
+
+            "data.attributes.name.string" => 'The program name has to be a string',
+            "data.attributes.code.string" => 'The program code has to be a string',
         ];
     }
 }

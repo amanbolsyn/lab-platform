@@ -8,6 +8,8 @@ use App\Http\Controllers\Api\v1\CategoryController;
 use App\Http\Controllers\Api\v1\ProgramController;
 use App\Http\Controllers\Api\V1\SessionController;
 use App\Http\Controllers\Api\v1\UserController;
+use App\Models\Category;
+use App\Models\Program;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(function () {
@@ -50,13 +52,19 @@ Route::prefix('v1')->group(function () {
 
   //program routes
   Route::middleware("auth:sanctum")->get('/programs', [ProgramController::class, 'index']);
-  Route::middleware("auth:sanctum")->post('/programs', [ProgramController::class, 'store']);
-  Route::middleware("auth:sanctum")->put('/programs/{program}', [ProgramController::class, 'update']);
-  Route::middleware("auth:sanctum")->delete('/programs/{program}', [ProgramController::class, 'destroy']);
+  Route::middleware("auth:sanctum")->post('/programs', [ProgramController::class, 'store'])
+    ->can('create', Program::class);;
+  Route::middleware("auth:sanctum")->put('/programs/{program}', [ProgramController::class, 'update'])
+    ->can('update', Program::class);;
+  Route::middleware("auth:sanctum")->delete('/programs/{program}', [ProgramController::class, 'destroy'])
+    ->can('delete', Program::class);;
 
   //category routes
   Route::middleware("auth:sanctum")->get('/categories', [CategoryController::class, 'index']);
-  Route::middleware("auth:sanctum")->post('/categories', [CategoryController::class, 'store']);
-  Route::middleware("auth:sanctum")->put('/categories/{category}', [CategoryController::class, 'update']);
-  Route::middleware("auth:sanctum")->delete('/categories/{category}', [CategoryController::class, 'destroy']);
+  Route::middleware("auth:sanctum")->post('/categories', [CategoryController::class, 'store'])
+    ->can('create', Category::class);
+  Route::middleware("auth:sanctum")->put('/categories/{category}', [CategoryController::class, 'update'])
+    ->can('update', Category::class);
+  Route::middleware("auth:sanctum")->delete('/categories/{category}', [CategoryController::class, 'destroy'])
+    ->can('delete', Category::class);
 });

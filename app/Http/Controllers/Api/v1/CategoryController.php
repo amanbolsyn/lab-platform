@@ -39,7 +39,13 @@ class CategoryController
      */
     public function update(UpdateCategoryRequest $request, Category $category)
     {
-        //
+        $model = [
+            "name" => $request->input("data.attributes.name"),
+        ];
+
+        $category->update($model);
+        
+        return new CategoryResource($category);
     }
 
     /**
