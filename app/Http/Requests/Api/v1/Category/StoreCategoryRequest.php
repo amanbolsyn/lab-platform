@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Http\Requests\Api\v1;
+namespace App\Http\Requests\Api\v1\Category;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateUserRequest extends FormRequest
+class StoreCategoryRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,15 @@ class UpdateUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            "data.attributes.name" => 'required|string',
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            "data.attributes.name.required" => 'The category name is required',
+            "data.attributes.name.string" => 'The category name has to be a string',
         ];
     }
 }

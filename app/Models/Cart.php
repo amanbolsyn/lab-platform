@@ -10,6 +10,7 @@ class Cart extends Model
     use HasFactory;
 
     public const STATUS_LEVELS = ['pending', 'approved', 'rejected', 'returned'];
+    
 
     //cart has many orders
     //cart belongs to one user 

@@ -16,30 +16,37 @@ class UserSeeder extends Seeder
     {
         $userRole = Role::where('role', 'user')->first();
         $adminRole = Role::where('role', 'admin')->first();
-       
+        $rootRole = Role::where('role', 'root')->first();
+
         // Create normal users
-        User::factory(10)->create()->each(function ($user) use ($userRole) {
-            $user->roles()->attach($userRole->id);
-        });
-
-
-        // Create one admin
-        $admin = User::factory()->create([
-            'fullname' => "admin admin",
-            'email' => 'admin@astanait.edu.kz',
-            'password' => 'admin123', 
-        ]);
+        // User::factory(10)->create()->each(function ($user) use ($userRole) {
+        //     $user->roles()->attach($userRole->id);
+        // });
 
         // Create one user
         $user = User::factory()->create([
             'fullname' => "user user",
             'email' => 'user@astanait.edu.kz',
-            'password' => 'user123', 
+            'password' => 'user123',
+        ]);
+
+        // Create one admin
+        $admin = User::factory()->create([
+            'fullname' => "admin admin",
+            'email' => 'admin@astanait.edu.kz',
+            'password' => 'admin123',
+        ]);
+
+        $root = User::factory()->create([
+            'fullname' => "root",
+            'email' => 'root@astanait.edu.kz',
+            'password' => 'root123',
         ]);
 
 
-        $user->roles()->attach($userRole->id); 
+        $user->roles()->attach($userRole->id);
+        $admin->roles()->attach($userRole->id);
         $admin->roles()->attach($adminRole->id);
-
+        $root->roles()->attach($rootRole->id);
     }
 }

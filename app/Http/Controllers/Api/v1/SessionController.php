@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api\v1;
 
 use App\Traits\ApiResponses;
-use App\Http\Requests\Api\v1\Auth\CreateSessionRequest;
+use App\Http\Requests\Api\v1\Auth\StoreSessionRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -15,7 +15,7 @@ class SessionController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(CreateSessionRequest $request)
+    public function store(StoreSessionRequest $request)
     {
         
         if(! Auth::attempt($request->only('email', 'password'))){

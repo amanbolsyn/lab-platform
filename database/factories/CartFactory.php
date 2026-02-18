@@ -22,7 +22,8 @@ class CartFactory extends Factory
             'user_id' => User::inRandomOrder()->value('id'),
             'purpose' => fake()->sentence(10),
             'status' => fake()->randomElement(Cart::STATUS_LEVELS),
-            'due_date' => fake()->dateTimeBetween('now', '+5 days')
+            'due_date' => fake()->dateTimeBetween('now', '+5 days'),
+            'comment' => fake()->sentence(10),
         ];
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Category;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,8 +19,22 @@ class ItemFactory extends Factory
     {
         return [
             'name' => fake()->word(),
-            'description' =>fake()->sentence(7),
-            'quantity' =>fake()->randomDigit(10),
+            'description' => fake()->sentence(7),
+            'quantity' => fake()->randomDigit(10),
+            'external_links' => fake()->sentence(10),
+            'comment' => fake()->sentence(10),
         ];
+    }
+
+    public function configure()
+    {
+        return $this->afterCreating(function ($item) {
+
+            $categories = Category::inRandomOrder()
+                ->limit(rand(1, 3))
+                ->pluck('id');
+
+            $item->categories()->attach($categories);
+        });
     }
 }

@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Http\Requests\Api\v1\Cart;
+namespace App\Http\Requests\Api\v1\Item;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateCartRequest extends FormRequest
+class UpdateItemRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,7 @@ class CreateCartRequest extends FormRequest
     public function rules(): array
     {
         return [
-            
+            //
         ];
     }
 }

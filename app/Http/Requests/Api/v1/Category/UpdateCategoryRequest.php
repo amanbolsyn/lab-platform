@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Api\v1\Auth;
+namespace App\Http\Requests\Api\v1\Category;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateSessionRequest extends FormRequest
+class UpdateCategoryRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,18 +22,15 @@ class CreateSessionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => ['required', 'string', 'email', 'ends_with:@astanait.edu.kz'],
-            'password' => ['required', 'string', 'min:6'],
+            "data.attributes.name" => 'required|string',
         ];
     }
-
 
     public function messages(): array
     {
         return [
-            'email.required'   => 'Email is required.',
-            'email.email'      => 'Invalid email address',
-            'email.ends_with'  => 'Invalid email address',
+            "data.attributes.name.required" => 'The category name is required',
+            "data.attributes.name.string" => 'The category name has to be a string',
         ];
     }
 }
