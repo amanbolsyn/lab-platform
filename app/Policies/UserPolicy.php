@@ -2,26 +2,25 @@
 
 namespace App\Policies;
 
-use App\Models\Item;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
 
-class ItemPolicy
+class UserPolicy
 {
     /**
      * Determine whether the user can view any models.
      */
     public function viewAny(User $user): bool
     {
-        return false;
+        return $user->isAdmin();
     }
 
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, Item $item): bool
+    public function view(User $user, User $model): bool
     {
-        return false;
+        return $user->isAdmin() || $user->id === $model->id;
     }
 
     /**
@@ -29,7 +28,7 @@ class ItemPolicy
      */
     public function create(User $user): bool
     {
-        return $user->isAdmin();
+        return false;
     }
 
     /**
@@ -43,15 +42,15 @@ class ItemPolicy
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user): bool
+    public function delete(User $user, User $model): bool
     {
-        return $user->isAdmin();
+        return false;
     }
 
     /**
      * Determine whether the user can restore the model.
      */
-    public function restore(User $user, Item $item): bool
+    public function restore(User $user, User $model): bool
     {
         return false;
     }
@@ -59,7 +58,7 @@ class ItemPolicy
     /**
      * Determine whether the user can permanently delete the model.
      */
-    public function forceDelete(User $user, Item $item): bool
+    public function forceDelete(User $user, User $model): bool
     {
         return false;
     }

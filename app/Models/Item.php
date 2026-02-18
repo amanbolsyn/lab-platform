@@ -8,14 +8,18 @@ use Illuminate\Database\Eloquent\Model;
 class Item extends Model
 {
 
-   public $timestamps = false;
+    use HasFactory;
 
-   use HasFactory;
-
-   protected $fillable = [
+    protected $fillable = [
         'name',
         'description',
         'quantity',
+        'comment',
+        'projects'
+    ];
+
+    protected $casts = [
+        'projects' => 'array',
     ];
 
 
@@ -24,8 +28,8 @@ class Item extends Model
         return $this->hasMany(Order::class);
     }
 
-    public function categories(){
+    public function categories()
+    {
         return $this->belongsToMany(Category::class);
     }
-
 }

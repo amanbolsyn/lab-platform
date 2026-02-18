@@ -21,7 +21,6 @@ class ItemFactory extends Factory
             'name' => fake()->word(),
             'description' => fake()->sentence(7),
             'quantity' => fake()->randomDigit(10),
-            'external_links' => fake()->sentence(10),
             'comment' => fake()->sentence(10),
         ];
     }

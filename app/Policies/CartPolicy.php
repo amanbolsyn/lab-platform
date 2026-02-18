@@ -13,7 +13,7 @@ class CartPolicy
      */
     public function viewAny(User $user): bool
     {
-        return false;
+        return $user->isAdmin();
     }
 
     /**
@@ -21,7 +21,7 @@ class CartPolicy
      */
     public function view(User $user, Cart $cart): bool
     {
-        return false;
+        return $user->isAdmin() || $user->id === $cart->user_id;
     }
 
     /**
