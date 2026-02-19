@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\v1;
 
+use App\Http\Filters\Api\V1\ItemFilter;
 use App\Http\Requests\Api\v1\Item\StoreItemRequest;
 use App\Http\Requests\Api\v1\Item\UpdateItemRequest;
 use App\Http\Resources\Api\v1\ItemResource;
@@ -17,9 +18,9 @@ class ItemController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(ItemFilter $filters)
     {
-        return ItemResource::collection(Item::paginate(15));
+        return ItemResource::collection(Item::with('categories')->filter($filters)->paginate(15));
     }
 
     /**
@@ -27,7 +28,6 @@ class ItemController extends Controller
      */
     public function store(StoreItemRequest $request)
     {
- 
 
         $model = [
             "name" => $request->input("data.attributes.name"),
