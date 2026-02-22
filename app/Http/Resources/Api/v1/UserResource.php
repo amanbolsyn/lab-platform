@@ -23,15 +23,15 @@ class UserResource extends JsonResource
                     $request->routeIs("user.show"),
                     $this->email
                 ),
-                'program' => $this->program->name, 
+                'program' => $this->program->name,
                 'group' => $this->group,
             ],
-            'includes' => $this->when(
+            'includes' => [
+            RoleResource::collection($this->roles),
+            $this->when(
                 $request->routeIs("user.show"),
-                [
-                    CartResource::collection($this->whenLoaded('carts')),
-                ]
-            ),
+                CartResource::collection($this->whenLoaded('carts')),
+            )],
             'links' => [
                 'self' => route("user.show", ['user' => $this->id])
             ],
