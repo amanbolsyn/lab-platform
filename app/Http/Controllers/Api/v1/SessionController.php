@@ -6,7 +6,6 @@ use App\Traits\ApiResponses;
 use App\Http\Requests\Api\v1\Auth\StoreSessionRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class SessionController extends Controller
 {
@@ -17,12 +16,8 @@ class SessionController extends Controller
      */
     public function store(StoreSessionRequest $request)
     {
-        
-        if(! Auth::attempt($request->only('email', 'password'))){
-            return $this->error('Invalid credentials', 401); 
-        }
 
-        $user = User::firstWhere('email', $request->email);
+        $user = User::firstWhere('email', $request["data.attributes.email"]);
 
         return $this->success("Authenticated", [
             'token' => $user->createToken('token' . $user->email , ['*'],  now()->plus(minutes:40))->plainTextToken,

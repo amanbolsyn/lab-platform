@@ -22,8 +22,8 @@ class StoreSessionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => ['required', 'string', 'email', 'ends_with:@astanait.edu.kz'],
-            'password' => ['required', 'string', 'min:6'],
+            'data.attributes.email' => ['required', 'string', 'email', 'ends_with:@astanait.edu.kz'],
+            'data.attributes.password' => ['required', 'string', 'min:8'],
         ];
     }
 
@@ -31,9 +31,9 @@ class StoreSessionRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'email.required'   => 'Email is required.',
-            'email.email'      => 'Invalid email address',
-            'email.ends_with'  => 'Invalid email address',
+            'data.attributes.email.required'   => 'Email is required.',
+            'data.attributes.email.email'      => 'Invalid email address',
+            'data.attributes.email.ends_with'  => 'Invalid email address',
         ];
     }
 }

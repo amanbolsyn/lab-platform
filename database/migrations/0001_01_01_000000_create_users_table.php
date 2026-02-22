@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('email', 255)->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('fullname', 127);
+            $table->string('fullname', 63);
             $table->foreignIdFor(Program::class, "program_id");
             $table->string('group', 17);
             $table->boolean('read_safety_precautions');

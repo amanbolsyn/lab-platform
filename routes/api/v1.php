@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('v1')->group(function () {
 
   // register routes
-  Route::post('/register', [RegisterController::class, 'store']);
+  Route::post('/register' , [RegisterController::class, 'store']);
 
   // session routes
   Route::post('/login', [SessionController::class, 'store']);
@@ -26,14 +26,14 @@ Route::prefix('v1')->group(function () {
 
 
   // item routes
-  Route::get('/', [ItemController::class, 'index']);
-  Route::get('/item/{item}', [ItemController::class, 'show'])
+  Route::get('/items', [ItemController::class, 'index']);
+  Route::get('/items/{item}', [ItemController::class, 'show'])
     ->name('item.show');
   Route::middleware("auth:sanctum")->post('/items', [ItemController::class, 'store'])
     ->can('create', Item::class);
   Route::middleware("auth:sanctum")->put('/items/{item}', [ItemController::class, 'update'])
     ->can('update', Item::class);
-  Route::middleware("auth:sanctum")->delete('/item/{item}', [ItemController::class, 'destroy'])
+  Route::middleware("auth:sanctum")->delete('/items/{item}', [ItemController::class, 'destroy'])
     ->can('delete', Item::class);
 
 
@@ -51,9 +51,9 @@ Route::prefix('v1')->group(function () {
   Route::middleware("auth:sanctum")->get('/carts/{cart}', [CartController::class, 'show'])
     ->can('view', 'cart')
     ->name("cart.show");
-  Route::post('/cart', [CartController::class, 'store']);
-  Route::put('/cart/{cart}', [CartController::class, 'update']);
-  Route::delete('/cart/{cart}', [CartController::class, 'destroy']);
+  Route::post('/carts', [CartController::class, 'store']);
+  Route::put('/carts/{cart}', [CartController::class, 'update']);
+  Route::delete('/carts/{cart}', [CartController::class, 'destroy']);
 
 
   // dashboard
