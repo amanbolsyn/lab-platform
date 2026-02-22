@@ -15,21 +15,26 @@ class ItemResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'type' => "item", 
-            'id' => $this->id, 
+            'type' => "item",
+            'id' => $this->id,
             'attributes' => [
-                'name' => $this->name, 
-                'description' => $this->when(
+                'name' => $this->name,
+                'quantity' => $this->quantity,
+                $this->mergeWhen(
                     $request->routeIs("item.show"),
-                    $this->description
-                ), 
-                'quantity' => $this->quantity, 
-                'external_links' => $this->external_links, 
-                'comment' => $this->comment, 
+                    [
+                        'description' => $this->description,
+                        'project_links' => $this->project_links,
+                        'comment' => $this->when(
+                            auth('sanctum')->user()?->isAdmin(),
+                            $this->comment
+                        )
+                    ]
+                )
             ],
             'includes' => [
-                CategoryResource::collection($this->categories), //subject to change
-            ] ,
+                CategoryResource::collection($this->categories)
+            ],
             'links' => [
                 'self' => route("item.show", ['item' => $this->id])
             ]

@@ -2,20 +2,26 @@
 
 namespace App\Models;
 
+use App\Http\Filters\Api\V1\QueryFilter;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Item extends Model
 {
 
-   public $timestamps = false;
+    use HasFactory;
 
-   use HasFactory;
-
-   protected $fillable = [
+    protected $fillable = [
         'name',
         'description',
         'quantity',
+        'comment',
+        'projects'
+    ];
+
+    protected $casts = [
+        'projects' => 'array',
     ];
 
 
@@ -24,8 +30,13 @@ class Item extends Model
         return $this->hasMany(Order::class);
     }
 
-    public function categories(){
+    public function categories()
+    {
         return $this->belongsToMany(Category::class);
     }
 
+    public function scopeFilter(Builder $builder, QueryFilter $filters)
+    {
+         return $filters->apply($builder);
+    }
 }

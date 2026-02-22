@@ -14,7 +14,7 @@ class UserController
      */
     public function index()
     {
-        return UserResource::collection(User::paginate(15));
+        return UserResource::collection(User::with('roles')->paginate(15));
     }
 
     /**

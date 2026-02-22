@@ -27,20 +27,20 @@ class UserSeeder extends Seeder
         $user = User::factory()->create([
             'fullname' => "user user",
             'email' => 'user@astanait.edu.kz',
-            'password' => 'user123',
+            'password' => 'User123.',
         ]);
 
         // Create one admin
         $admin = User::factory()->create([
             'fullname' => "admin admin",
             'email' => 'admin@astanait.edu.kz',
-            'password' => 'admin123',
+            'password' => 'Admin123.',
         ]);
 
         $root = User::factory()->create([
             'fullname' => "root",
             'email' => 'root@astanait.edu.kz',
-            'password' => 'root123',
+            'password' => 'Root123.',
         ]);
 
 

@@ -1,59 +1,136 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Lab Platform
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Inventory Management System(IMS) API for unversity lab. Students can register and books items. 
 
-## About Laravel
+## Installation
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Clone the repository 
+```bash
+git clone https://github.com/amanbolsyn/lab-platform.git
+```
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Go to the cloned directory
+```bash
+cd lab-platform/
+```
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Install all the dependencies 
+```bash
+composer install
+npm install
+```
 
-## Learning Laravel
+Create local env file
+```bash
+copy .env.example .env
+```
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+Run the composer
+```bash
+composer run dev
+```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Create application key and migrate and seed db
+```bash
+php artisan key:generate
+php artisan migrate:fresh --seed
+```
 
-## Laravel Sponsors
+## Roles 
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+| Roles | Description | 
+|:------:|------|
+| User | Can order items | 
+| Admin | Can access all enpoints except adding new admins | 
+| Root | Can access all endpoints | 
 
-### Premium Partners
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+## API Endpoints 
+
+### Cart endpoints 
+
+| Method | Endpoint | Description | Roles |
+|:------:|------|------|:------:|
+| GET | `/carts`| get all carts | admin, root
+| GET | `/carts/:id`| get a cart | user, admin, root
+| POST | `/carts`| create new cart | user
+| PUT | `/carts/:id`| edit a cart | admin, root
+| DELETE | `/carts/:id`| delete a cart| admin, root
+
+### Item endpoints 
+
+| Method | Endpoint | Description | Roles |
+|:------:|------|------|:------:|
+| GET | `/items`| get all items | everyone
+| GET | `/items?category=val1,val2`| filter items by category| everyone
+| GET | `/items/:id`| get an item | everyone
+| POST | `/items`| create new item| admin, root
+| PUT | `/items/:id`| edit an item | admin, root
+| DELETE | `/items/:id`| delete an item | admin, root
+
+
+### Category endpoints 
+
+| Method | Endpoint | Description | Roles |
+|:------:|------|------|:------:|
+| GET | `/categories`| get all categories | user, admin, root
+| POST | `/categories`| create new category | admin, root
+| PUT | `/categories/:id`| edit a category | admin, root
+| DELETE | `/categories/:id`| delete a category | admin, root
+
+
+### Program endpoints 
+
+| Method | Endpoint | Description | Roles |
+|:------:|------|------|:------:|
+| GET | `/programs`| get all programs | user, admin, root
+| POST | `/programs`| create new program | admin, root
+| PUT | `/programs/:id`| edit a program | admin, root
+| DELETE | `/programs/:id`| delete a program | admin, root
+
+### User endpoints 
+| Method | Endpoint | Description | Roles |
+|:------:|------|------|:------:|
+| GET | `/users`| get all users | admin, root
+| GET | `/users/:id`| get a user| user, admin, root
+| PUT | `/users/:id`| change user information | admin
+| PUT | `/users/:id`| add admin role | root
+
+### Session endpoints 
+| Method | Endpoint | Description | Roles |
+|:------:|------|------|:------:|
+| POST | `/login`| create new session | everyone
+| POST | `/login`| destory the session| user
+
+### Regisration endpoints 
+| Method | Endpoint | Description | Roles |
+|:------:|------|------|:------:|
+| POST | `/register`| create new user | everyone
+
+### Role endpoint
+| Method | Endpoint | Description | Roles |
+|:------:|------|------|:------:|
+| GET | `/roles`| get all roles | admin, root
+
+### Dashboard endpoint 
+| Method | Endpoint | Description | Roles |
+|:------:|------|------|:------:|
+| GET | `/dashboard`| get cart analytics | admin, root
+
+## Possible improvements 
+
+
+## Bugs 
+
+## Resources 
+
++ [Laravel Docs](https://laravel.com/docs/12.x/installation)
 
 ## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Pull requests are welcome. For major changes, please open an issue first
+to discuss what you would like to change.
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Cannot be used for commercial purposes.
