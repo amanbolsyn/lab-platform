@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\v1\ItemController;
 use App\Http\Controllers\Api\v1\CartController;
 use App\Http\Controllers\Api\v1\CategoryController;
 use App\Http\Controllers\Api\v1\ProgramController;
+use App\Http\Controllers\Api\v1\RoleController;
 use App\Http\Controllers\Api\V1\SessionController;
 use App\Http\Controllers\Api\v1\UserController;
 use App\Models\Cart;
@@ -18,7 +19,7 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('v1')->group(function () {
 
   // register routes
-  Route::post('/register' , [RegisterController::class, 'store']);
+  Route::post('/register', [RegisterController::class, 'store']);
 
   // session routes
   Route::post('/login', [SessionController::class, 'store']);
@@ -43,11 +44,13 @@ Route::prefix('v1')->group(function () {
   Route::middleware("auth:sanctum")->get("/users/{user}", [UserController::class, 'show'])
     ->can('view', 'user')
     ->name('user.show');
+  Route::middleware("auth:sanctum")->put("/users/{user}", [UserController::class, 'update'])
+    ->can('update', 'user');
 
 
   // order routes
   Route::middleware("auth:sanctum")->get('/carts', [CartController::class, 'index'])
-  ->can('viewAny', User::class);
+    ->can('viewAny', User::class);
   Route::middleware("auth:sanctum")->get('/carts/{cart}', [CartController::class, 'show'])
     ->can('view', 'cart')
     ->name("cart.show");
@@ -57,7 +60,12 @@ Route::prefix('v1')->group(function () {
 
 
   // dashboard
-  Route::get('/dashboard', [DashboardController::class, 'index']);
+  Route::middleware("auth:sanctum")->get('/dashboard', [DashboardController::class, 'index']);
+
+  //role routes 
+  Route::middleware("auth:sanctum")->get('/roles', [RoleController::class, 'index'])
+    ->can('viewAny', User::class)
+    ->name('role.index');
 
 
   //program routes
