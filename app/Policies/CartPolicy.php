@@ -35,9 +35,9 @@ class CartPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Cart $cart): bool
+    public function update(User $user): bool
     {
-        return false;
+        return $user->isAdmin(); 
     }
 
     /**

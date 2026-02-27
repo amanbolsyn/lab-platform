@@ -35,8 +35,8 @@ class RegisterUserRequest extends FormRequest
                     ->mixedCase()
                     ->symbols(),
             ],
-            "data.attributes.program_id" => ["required", "exists:programs,id"],
             "data.attributes.read_safety_precautions" => ["required", "boolean", "accepted"],
+            "relationships.program.id"  => ["required", "exists:programs,id"],
         ];
     }
 
@@ -68,13 +68,12 @@ class RegisterUserRequest extends FormRequest
             "data.attributes.password.*.mixed"  => "The password must contain at least upper and lower case letters",
             "data.attributes.password.*.symbols"  => "The password must contain at least one symbol",
 
-            "data.attributes.program_id.required"  => "The program field is required",
-            "data.attributes.program_id.exists"  => "The program name does not exist",
-
             "data.attributes.read_safety_precautions.required" => "The reading safety precations is required",
             "data.attributes.read_safety_precautions.boolean" => "The read_safety_precautions field has to be boolean value",
-            "data.attributes.read_safety_precautions.accepted" => "The read_safety_precautions field has to be truthy"
+            "data.attributes.read_safety_precautions.accepted" => "The read_safety_precautions field has to be truthy",
 
+            "relationships.program.id.required"  => "The program field is required",
+            "relationships.program.id.exists"  => "The program name does not exist",
 
         ];
     }

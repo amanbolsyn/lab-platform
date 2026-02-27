@@ -20,7 +20,7 @@ class OrderResource extends JsonResource
             'attributes' => [
                 'quantity' => $this->quantity
             ],
-            'includes' => [
+            'included' => [
                  new ItemResource($this->item),
             ],
         ];

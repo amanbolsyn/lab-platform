@@ -28,7 +28,7 @@ class UpdateItemRequest extends FormRequest
             "data.attributes.comment" => 'string',
             "data.attributes.projects" => 'array|max:5',
             "data.attributes.categories" => 'array', 
-            'data.attributes.categories.*' => 'exists:categories,id',
+            'relationships.categories.*' => 'exists:categories,id',
         ];
     }
 
@@ -50,7 +50,7 @@ class UpdateItemRequest extends FormRequest
             "data.attributes.projects.array" => 'The projects field has to be an array',
             "data.attributes.projects.max" => 'Maximum projects number was reached',
 
-            'data.attributes.categories.*.exists' => 'Selected category does not exists',
+            'relationships.categories.*.exists' => 'Selected category does not exists',
         ];
     }
 }

@@ -22,8 +22,8 @@ class UpdateProgramRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "data.attributes.name" => 'required|string',
-            "data.attributes.code" => 'required|string',
+            "data.attributes.name" => ['required', 'string'],
+            "data.attributes.code" => ['required', 'string'],
         ];
     }
 

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api\v1;
 
-use App\Http\Requests\Api\v1\Cart\CreateCartRequest;
+use App\Http\Requests\Api\v1\Cart\StoreCartRequest;
 use App\Http\Requests\Api\v1\Cart\UpdateCartRequest;
 use App\Http\Resources\Api\v1\CartResource;
 use App\Models\Cart;
@@ -16,13 +16,13 @@ class CartController extends Controller
      */
     public function index()
     {
-        return CartResource::collection(Cart::paginate(15));
+        return CartResource::collection(Cart::with('user')->paginate(15));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(CreateCartRequest $request)
+    public function store(StoreCartRequest $request)
     {
 
     }
