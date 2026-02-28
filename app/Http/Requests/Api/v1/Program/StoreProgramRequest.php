@@ -28,14 +28,11 @@ class StoreProgramRequest extends FormRequest
         ];
     }
 
-    public function messages()
+    public function attributes()
     {
         return [
-            "data.attributes.name.required" => 'The program name is required',
-            "data.attributes.code.required" => 'The program code is required',
-
-            "data.attributes.name.string" => 'The program name has to be a string',
-            "data.attributes.code.string" => 'The program code has to be a string',
+            "data.attributes.name" => "name", 
+            "data.attributes.code" => "code"
         ];
     }
 }

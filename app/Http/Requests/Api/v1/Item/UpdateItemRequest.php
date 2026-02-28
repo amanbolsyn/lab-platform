@@ -19,7 +19,7 @@ class UpdateItemRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
-      public function rules(): array
+    public function rules(): array
     {
         return [
             "data.attributes.name" => 'required|string',
@@ -27,30 +27,22 @@ class UpdateItemRequest extends FormRequest
             "data.attributes.quantity" => 'required|integer',
             "data.attributes.comment" => 'string',
             "data.attributes.projects" => 'array|max:5',
-            "data.attributes.categories" => 'array', 
+            "data.attributes.categories" => 'array',
+
             'relationships.categories.*' => 'exists:categories,id',
         ];
     }
 
-
-    public function messages(): array
+    public function attributes(): array
     {
         return [
-            "data.attributes.name.required" => 'The name field is required ',
-            "data.attributes.name.string" => 'The name field must be a string',
+            "data.attributes.name" => 'name',
+            "data.attributes.description" => 'description',
+            "data.attributes.quantity" => 'quantity',
+            "data.attributes.comment" => 'comment',
+            "data.attributes.projects" => 'projects',
 
-            "data.attributes.description.required" => 'The description field is required',
-            "data.attributes.description.string" => 'The description field must be a string',
-
-            "data.attributes.quantity.required" => 'The quantity field is required',
-            "data.attributes.quantity.integer" => 'The quantity must be an integer',
-
-            "data.attributes.comment.string" => 'The comment has to be a string',
-
-            "data.attributes.projects.array" => 'The projects field has to be an array',
-            "data.attributes.projects.max" => 'Maximum projects number was reached',
-
-            'relationships.categories.*.exists' => 'Selected category does not exists',
+            'relationships.categories.*' => 'categories',
         ];
     }
 }

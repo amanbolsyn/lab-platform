@@ -24,7 +24,7 @@ class CartController extends Controller
      */
     public function store(StoreCartRequest $request)
     {
-
+    
     }
 
     /**
@@ -33,7 +33,7 @@ class CartController extends Controller
     public function show(Cart $cart)
     {
         $cart = Cart::with('orders.item')->findOrFail($cart->id);
-        return new CartResource($cart); 
+        return new CartResource($cart);
     }
 
     /**

@@ -26,11 +26,10 @@ class UpdateCategoryRequest extends FormRequest
         ];
     }
 
-    public function messages(): array
+    public function attributes()
     {
         return [
-            "data.attributes.name.required" => 'The category name is required',
-            "data.attributes.name.string" => 'The category name has to be a string',
+            "data.attributes.name" => "name",
         ];
     }
 }

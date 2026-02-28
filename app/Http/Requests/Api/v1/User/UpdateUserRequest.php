@@ -32,14 +32,11 @@ class UpdateUserRequest extends FormRequest
             "data.attributes.role" => 'string',
         ];
     }
-
-    public function messages()
-    {
+   
+    public function attributes(){
         return [
-            "data.attributes.name.required" => 'The program name is required',
-
-            "data.attributes.name.string" => 'The program name has to be a string',
-            "data.attributes.role.string" => 'The program code has to be a string',
+            "data.attributes.fullname" => "fullname",
+            "data.attributes.role" => "string"
         ];
     }
 }

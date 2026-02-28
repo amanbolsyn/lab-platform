@@ -39,42 +39,18 @@ class RegisterUserRequest extends FormRequest
             "relationships.program.id"  => ["required", "exists:programs,id"],
         ];
     }
-
-
-    public function messages(): array
+     
+    public function attributes()
     {
         return [
-            "data.attributes.fullname.required" => "The fullname field is required",
-            "data.attributes.fullname.max" => "The fullname field exceeds max characters",
-            "data.attributes.fullname.string" => "The fullname field must be a string",
+            "data.attributes.fullname" => "fullname", 
+            "data.attributes.email" => "email",
+            "data.attributes.group" => "group", 
+            "data.attributes.password" => "password", 
+            "data.attributes.read_safety_precautions" => "read safety precautions",
 
-
-            "data.attributes.email.required" => "The email field is required",
-            "data.attributes.email.email" => "Invalid email address",
-            "data.attributes.email.max" => "The email field exceeds max characters",
-            "data.attributes.email.ends_with"  => "Invalid email address",
-            "data.attributes.email.unique"  => "Email is already registered",
-
-            "data.attributes.group.reqiured"  => "The group field is required",
-            "data.attributes.group.max"  => "The group filed exceeds max characters",
-            "data.attributes.group.regex"  => "Invalid group",
-
-
-            "data.attributes.password.required"  => "The password field is required",
-            "data.attributes.password.confirmed"  => "The passwords don't match",
-            "data.attributes.password.min"  => "The password must be at least 8 characters long",
-            "data.attributes.password.*.letters"  => "The password must contain at least one letter",
-            "data.attributes.password.*.numbers"  => "The password must contain at least one number",
-            "data.attributes.password.*.mixed"  => "The password must contain at least upper and lower case letters",
-            "data.attributes.password.*.symbols"  => "The password must contain at least one symbol",
-
-            "data.attributes.read_safety_precautions.required" => "The reading safety precations is required",
-            "data.attributes.read_safety_precautions.boolean" => "The read_safety_precautions field has to be boolean value",
-            "data.attributes.read_safety_precautions.accepted" => "The read_safety_precautions field has to be truthy",
-
-            "relationships.program.id.required"  => "The program field is required",
-            "relationships.program.id.exists"  => "The program name does not exist",
-
+            "relationships.program.id" => "program"
         ];
+
     }
 }

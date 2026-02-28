@@ -26,7 +26,6 @@ class StoreCartRequest extends FormRequest
             "data.attributes.purpose" => ['required', 'string'],
 
             "included" => ['required', 'array'],
-            "included.*.type" => ['required', 'in:order'],
             "included.*.attributes.quantity" => ['required', 'integer', 'min:1'],
             "included.*.attributes.id" => ['required', 'integer', 'exists:items,id']
         ];
@@ -41,6 +40,14 @@ class StoreCartRequest extends FormRequest
 
             "data.attributes.purpose.required" => 'The purpose field is required',
             "data.attributes.purpose.string" => 'The purpose field has to be a string',
+
+            "included.*.attributes.quantity.required" => "The quantity field is required",
+            "included.*.attributes.quantity.integer" => "The quantity field has to be an integer",
+            "included.*.attributes.quantity.min" => "The quantity field minimum is 1",
+
+            "included.*.attributes.id.required" => "The item id field is required",
+            "included.*.attributes.id.integer" => "The item id field has to be an integer",
+            "included.*.attributes.id.exists" => "The item id does not exist ",
         ];
     }
 }
