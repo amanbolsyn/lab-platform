@@ -28,12 +28,10 @@ class StoreSessionRequest extends FormRequest
     }
 
 
-    public function messages(): array
-    {
+    public function attributs(){
         return [
-            'data.attributes.email.required'   => 'Email is required.',
-            'data.attributes.email.email'      => 'Invalid email address',
-            'data.attributes.email.ends_with'  => 'Invalid email address',
+            "data.attributes.email" => "email", 
+            "data.attributes.password" => "password"
         ];
     }
 }

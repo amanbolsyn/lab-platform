@@ -11,9 +11,9 @@ class Cart extends Model
 
     public const STATUS_LEVELS = ['pending', 'approved', 'rejected', 'returned'];
     
-
-    //cart has many orders
-    //cart belongs to one user 
+    public $fillable = [
+        'due_date', 'purpose'
+    ];
 
     public function user()
     {

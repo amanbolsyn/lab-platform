@@ -9,12 +9,13 @@ use App\Http\Controllers\Api\v1\ProgramController;
 use App\Http\Controllers\Api\v1\RoleController;
 use App\Http\Controllers\Api\V1\SessionController;
 use App\Http\Controllers\Api\v1\UserController;
+use Illuminate\Support\Facades\Route;
 use App\Models\Cart;
 use App\Models\Category;
 use App\Models\Item;
 use App\Models\Program;
+use App\Models\Role;
 use App\Models\User;
-use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(function () {
 
@@ -27,7 +28,8 @@ Route::prefix('v1')->group(function () {
 
 
   // item routes
-  Route::get('/items', [ItemController::class, 'index']);
+  Route::get('/items', [ItemController::class, 'index'])
+    ->name('item.index');
   Route::get('/items/{item}', [ItemController::class, 'show'])
     ->name('item.show');
   Route::middleware("auth:sanctum")->post('/items', [ItemController::class, 'store'])
@@ -40,45 +42,44 @@ Route::prefix('v1')->group(function () {
 
   //user routes
   Route::middleware("auth:sanctum")->get("/users", [UserController::class, 'index'])
-    ->can('viewAny', User::class);
+    ->can('viewAny', User::class)
+    ->name('user.index');
   Route::middleware("auth:sanctum")->get("/users/{user}", [UserController::class, 'show'])
     ->can('view', 'user')
     ->name('user.show');
-  Route::middleware("auth:sanctum")->put("/users/{user}", [UserController::class, 'update'])
-    ->can('update', 'user');
+  Route::middleware("auth:sanctum")->put("/users/{user}", [UserController::class, 'update']);
 
 
-  // order routes
+  // carts routes
   Route::middleware("auth:sanctum")->get('/carts', [CartController::class, 'index'])
-    ->can('viewAny', User::class);
+    ->can('viewAny', Cart::class);
   Route::middleware("auth:sanctum")->get('/carts/{cart}', [CartController::class, 'show'])
     ->can('view', 'cart')
     ->name("cart.show");
-  Route::post('/carts', [CartController::class, 'store']);
-  Route::put('/carts/{cart}', [CartController::class, 'update']);
-  Route::delete('/carts/{cart}', [CartController::class, 'destroy']);
-
+  Route::middleware("auth:sanctum")->post('/carts', [CartController::class, 'store']);
+  Route::middleware("auth:sanctum")->put('/carts/{cart}', [CartController::class, 'update'])
+    ->can('update', 'cart');
 
   // dashboard
   Route::middleware("auth:sanctum")->get('/dashboard', [DashboardController::class, 'index']);
 
   //role routes 
   Route::middleware("auth:sanctum")->get('/roles', [RoleController::class, 'index'])
-    ->can('viewAny', User::class)
+    ->can('viewAny', Role::class)
     ->name('role.index');
 
 
   //program routes
-  Route::middleware("auth:sanctum")->get('/programs', [ProgramController::class, 'index']);
+  Route::get('/programs', [ProgramController::class, 'index']);
   Route::middleware("auth:sanctum")->post('/programs', [ProgramController::class, 'store'])
-    ->can('create', Program::class);;
+    ->can('create', Program::class);
   Route::middleware("auth:sanctum")->put('/programs/{program}', [ProgramController::class, 'update'])
-    ->can('update', Program::class);;
+    ->can('update', Program::class);
   Route::middleware("auth:sanctum")->delete('/programs/{program}', [ProgramController::class, 'destroy'])
-    ->can('delete', Program::class);;
+    ->can('delete', Program::class);
 
   //category routes
-  Route::middleware("auth:sanctum")->get('/categories', [CategoryController::class, 'index']);
+  Route::get('/categories', [CategoryController::class, 'index']);
   Route::middleware("auth:sanctum")->post('/categories', [CategoryController::class, 'store'])
     ->can('create', Category::class);
   Route::middleware("auth:sanctum")->put('/categories/{category}', [CategoryController::class, 'update'])

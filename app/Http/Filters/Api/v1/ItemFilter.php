@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Filters\Api\V1;
+namespace app\Http\Filters\Api\v1;
 
 
 class ItemFilter extends QueryFilter

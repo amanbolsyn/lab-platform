@@ -7,6 +7,7 @@ use App\Http\Requests\Api\v1\Program\UpdateProgramRequest;
 use App\Http\Resources\Api\v1\ProgramResource;
 use App\Traits\ApiResponses;
 use App\Models\Program;
+use OpenApi\Attributes as OA;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Auth;
 
@@ -17,6 +18,7 @@ class ProgramController
     /**
      * Display a listing of the resource.
      */
+
     public function index()
     {
         return ProgramResource::collection(Program::paginate(15));
@@ -57,6 +59,6 @@ class ProgramController
     public function destroy(Program $program)
     {
         $program->delete();
-        return $this->success("Program deleted successfully");
+        return $this->success("Resource deleted successfully");
     }
 }

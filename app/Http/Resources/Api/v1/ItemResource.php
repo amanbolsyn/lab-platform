@@ -32,9 +32,10 @@ class ItemResource extends JsonResource
                     ]
                 )
             ],
-            'includes' => [
+            'included' => [$this->when(
+                $request->routeIs("item.show", "item.index"),
                 CategoryResource::collection($this->categories)
-            ],
+            )],
             'links' => [
                 'self' => route("item.show", ['item' => $this->id])
             ]

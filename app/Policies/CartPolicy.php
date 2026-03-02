@@ -35,32 +35,9 @@ class CartPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Cart $cart): bool
+    public function update(User $user): bool
     {
-        return false;
+        return $user->isAdmin(); 
     }
 
-    /**
-     * Determine whether the user can delete the model.
-     */
-    public function delete(User $user, Cart $cart): bool
-    {
-        return false;
-    }
-
-    /**
-     * Determine whether the user can restore the model.
-     */
-    public function restore(User $user, Cart $cart): bool
-    {
-        return false;
-    }
-
-    /**
-     * Determine whether the user can permanently delete the model.
-     */
-    public function forceDelete(User $user, Cart $cart): bool
-    {
-        return false;
-    }
 }

@@ -39,7 +39,7 @@ class ItemController extends Controller
 
         $item = Item::create($model);
 
-        $item->categories()->attach($request->input("data.attributes.categories"));
+        $item->categories()->attach($request->input("relationships.categories"));
 
         return new ItemResource($item);
     }
@@ -66,7 +66,7 @@ class ItemController extends Controller
         ];
 
         $item->update($model);
-        $item->categories()->sync($request->input("data.attributes.categories"));
+        $item->categories()->sync($request->input("relationships.categories"));
 
         return new ItemResource($item);
     }

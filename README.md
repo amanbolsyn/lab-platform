@@ -22,7 +22,7 @@ npm install
 
 Create local env file
 ```bash
-copy .env.example .env
+cp .env.example .env
 ```
 
 Run the composer
@@ -30,11 +30,17 @@ Run the composer
 composer run dev
 ```
 
-Create application key and migrate and seed db
+Generate application key
 ```bash
 php artisan key:generate
+```
+
+Migrate and seed the database
+```
 php artisan migrate:fresh --seed
 ```
+
+Change APP_TIMZONE to sutiable timezone inside .env file
 
 ## Roles 
 

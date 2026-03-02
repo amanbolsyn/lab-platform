@@ -20,17 +20,22 @@ class CartResource extends JsonResource
             'attributes' => [
                 'status' => $this->status,
                 'dueDate' => $this->due_date,
-                'purpose' => $this->when(
+                $this->mergeWhen(
                     $request->routeIs("cart.show"),
-                    $this->purpose,
+                    [
+                        "purpose" => $this->purpose,
+                        "comment" => $this->comment,
+                    ]
                 ),
+
             ],
-            'includes'=> $this->when(
-                $request->routeIs('cart.show'),
-                [
+            'included' => [
+                new UserResource($this->user),
+                $this->when(
+                    $request->routeIs('cart.show'),
                     OrderResource::collection($this->whenLoaded('orders')),
-                ],
-            ),
+                )
+            ],
             'links' => [
                 'self' => route("cart.show", ['cart' => $this->id])
             ]

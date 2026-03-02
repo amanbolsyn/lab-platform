@@ -20,7 +20,7 @@ class RoleResource extends JsonResource
             'attributes' => [
                 'role' => $this->role,
             ], 
-            'includes' => $this->when(
+            'included' => $this->when(
                 $request->routeIs('role.index'),
             [
                 'users_count' => $this->users_count,
