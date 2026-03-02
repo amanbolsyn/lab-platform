@@ -70,7 +70,7 @@ Route::prefix('v1')->group(function () {
 
 
   //program routes
-  Route::middleware("auth:sanctum")->get('/programs', [ProgramController::class, 'index']);
+  Route::get('/programs', [ProgramController::class, 'index']);
   Route::middleware("auth:sanctum")->post('/programs', [ProgramController::class, 'store'])
     ->can('create', Program::class);
   Route::middleware("auth:sanctum")->put('/programs/{program}', [ProgramController::class, 'update'])
@@ -79,7 +79,7 @@ Route::prefix('v1')->group(function () {
     ->can('delete', Program::class);
 
   //category routes
-  Route::middleware("auth:sanctum")->get('/categories', [CategoryController::class, 'index']);
+  Route::get('/categories', [CategoryController::class, 'index']);
   Route::middleware("auth:sanctum")->post('/categories', [CategoryController::class, 'store'])
     ->can('create', Category::class);
   Route::middleware("auth:sanctum")->put('/categories/{category}', [CategoryController::class, 'update'])

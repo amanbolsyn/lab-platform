@@ -1,0 +1,322 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Lab Platform API endpoints",
+        "description": "API Documentation for the University Lab Inventory Management System (IMS)",
+        "contact": {
+            "name": "Aman Nurgozhiyev",
+            "email": "anurgozhiyev@gmail.com"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/v1/categories": {
+            "get": {
+                "tags": [
+                    "Categories"
+                ],
+                "summary": "Get categories list",
+                "operationId": "577d837eb989c885ca5a41e01f008908",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Category"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/programs": {
+            "get": {
+                "tags": [
+                    "Programs"
+                ],
+                "summary": "Get programs list",
+                "operationId": "20a8808c4bba59de72a4f5e72f0bfebb",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Program"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Programs"
+                ],
+                "summary": "Create program",
+                "operationId": "1674f01f040fd03b4c917f525d40627e",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ProgramRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Program"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/programs/{id}": {
+            "put": {
+                "tags": [
+                    "Programs"
+                ],
+                "summary": "Edit a program",
+                "operationId": "ff5507145656ec8b9301d924a3bdb5e9",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/IdParameter"
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ProgramRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Program"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthenticated"
+                    },
+                    "403": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/ResourceNotFound"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Programs"
+                ],
+                "summary": "Delete a program",
+                "operationId": "69342fcce59af45b4319e93b6e5b8d90",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/IdParameter"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/SuccessDelete"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthenticated"
+                    },
+                    "403": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/ResourceNotFound"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "ProgramRequest": {
+                "required": [
+                    "name",
+                    "code"
+                ],
+                "properties": {
+                    "data": {
+                        "properties": {
+                            "attributes": {
+                                "$ref": "#/components/schemas/Program"
+                            }
+                        },
+                        "type": "object"
+                    }
+                },
+                "type": "object"
+            },
+            "Category": {
+                "required": [
+                    "id",
+                    "name"
+                ],
+                "properties": {
+                    "id": {
+                        "description": "Cateogory ID",
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "name": {
+                        "description": "Category name",
+                        "type": "string",
+                        "maxLength": 255,
+                        "example": "Motors"
+                    }
+                },
+                "type": "object"
+            },
+            "Program": {
+                "required": [
+                    "id",
+                    "name",
+                    "code"
+                ],
+                "properties": {
+                    "name": {
+                        "description": "Program name",
+                        "type": "string",
+                        "maxLength": 255,
+                        "example": "Software Engenineering"
+                    },
+                    "code": {
+                        "description": "Program code",
+                        "type": "string",
+                        "maxLength": 63,
+                        "example": "6B06102"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "responses": {
+            "ResourceNotFound": {
+                "description": "Resource doesn't exists",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "properties": {
+                                "message": {
+                                    "type": "string",
+                                    "example": "Resource not found"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "SuccessDelete": {
+                "description": "Resource deleted successfully",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "properties": {
+                                "message": {
+                                    "type": "string",
+                                    "example": "Resource deleted successfully"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "Unauthenticated": {
+                "description": "Unauthenticated operation",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "properties": {
+                                "message": {
+                                    "type": "string",
+                                    "example": "Unauthenticated"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "Unauthorized": {
+                "description": "Unauthorized operation",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "properties": {
+                                "message": {
+                                    "type": "string",
+                                    "example": "Unauthorized"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "parameters": {
+            "IdParameter": {
+                "name": "id",
+                "in": "path",
+                "description": "Resource id parameter",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Categories",
+            "description": "Categories"
+        },
+        {
+            "name": "Programs",
+            "description": "Programs"
+        }
+    ]
+}
