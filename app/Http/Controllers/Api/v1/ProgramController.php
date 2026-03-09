@@ -30,7 +30,7 @@ class ProgramController
     public function store(StoreProgramRequest $request)
     {
         $model = [
-            "name" => $request->input("data.attributes.name"),
+            "program" => $request->input("data.attributes.program"),
             "code" => $request->input("data.attributes.code"),
         ];
 
@@ -44,7 +44,7 @@ class ProgramController
     public function update(UpdateProgramRequest $request, Program $program)
     {
         $model = [
-            "name" => $request->input("data.attributes.name"),
+            "program" => $request->input("data.attributes.program"),
             "code" => $request->input("data.attributes.code"),
         ];
 
@@ -59,6 +59,7 @@ class ProgramController
     public function destroy(Program $program)
     {
         $program->delete();
+
         return $this->success("Resource deleted successfully");
     }
 }

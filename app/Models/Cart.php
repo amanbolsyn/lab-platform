@@ -12,7 +12,7 @@ class Cart extends Model
     public const STATUS_LEVELS = ['pending', 'approved', 'rejected', 'returned'];
     
     public $fillable = [
-        'due_date', 'purpose'
+        'due_date', 'purpose', 'comment'
     ];
 
     public function user()

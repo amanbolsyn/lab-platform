@@ -24,7 +24,7 @@ class StoreItemRequest extends FormRequest
         return [
             "data.attributes.name" => ['required', 'string'],
             "data.attributes.description" => ['required', 'string'],
-            "data.attributes.quantity" => ['required', 'integer'],
+            "data.attributes.quantity" => ['required', 'int'],
             "data.attributes.comment" => ['string'],
             "data.attributes.projects" => ['array', 'max:5'],
 

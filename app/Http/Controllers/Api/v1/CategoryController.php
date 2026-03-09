@@ -27,7 +27,7 @@ class CategoryController
     public function store(StoreCategoryRequest $request)
     {
         $model = [
-            "name" => $request->input("data.attributes.name"),
+            "category" => $request->input("data.attributes.category"),
         ];
 
         return new CategoryResource(Category::create($model));
@@ -40,11 +40,11 @@ class CategoryController
     public function update(UpdateCategoryRequest $request, Category $category)
     {
         $model = [
-            "name" => $request->input("data.attributes.name"),
+            "category" => $request->input("data.attributes.category"),
         ];
 
         $category->update($model);
-        
+
         return new CategoryResource($category);
     }
 
@@ -53,7 +53,8 @@ class CategoryController
      */
     public function destroy(Category $category)
     {
-            $category->delete();
-            return $this->success("Category deleted successfully");
+        $category->delete();
+
+        return $this->success("Resource deleted successfully");
     }
 }

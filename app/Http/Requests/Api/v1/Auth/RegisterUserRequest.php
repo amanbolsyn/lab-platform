@@ -23,9 +23,9 @@ class RegisterUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "data.attributes.fullname" => ["required", "string", " max:63"],
+            "data.attributes.fullname" => ["required", "string", "max:63"],
             "data.attributes.email" => ["required", "email", "unique:users,email", "max:255", "ends_with:@astanait.edu.kz"],
-            "data.attributes.group" => ["required", "max:17", "regex:/^[A-Za-z]+-[0-9]+$/"],
+            "data.attributes.group" => ["required", "string",  "max:17", "regex:/^[A-Za-z]+-[0-9]+$/"],
             "data.attributes.password" => [
                 "required",
                 "confirmed",
@@ -39,18 +39,17 @@ class RegisterUserRequest extends FormRequest
             "relationships.program.id"  => ["required", "exists:programs,id"],
         ];
     }
-     
+
     public function attributes()
     {
         return [
-            "data.attributes.fullname" => "fullname", 
+            "data.attributes.fullname" => "fullname",
             "data.attributes.email" => "email",
-            "data.attributes.group" => "group", 
-            "data.attributes.password" => "password", 
+            "data.attributes.group" => "group",
+            "data.attributes.password" => "password",
             "data.attributes.read_safety_precautions" => "read safety precautions",
 
             "relationships.program.id" => "program"
         ];
-
     }
 }

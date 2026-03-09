@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Api\v1\Cart;
 
+use App\Rules\Item\CheckItemQuantity;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreCartRequest extends FormRequest
@@ -22,32 +23,22 @@ class StoreCartRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "data.attributes.dueDate" => ['required', 'date', 'date_format:Y-m-d'],
             "data.attributes.purpose" => ['required', 'string'],
+            "data.attributes.dueDate" => ['required', 'date', 'date_format:Y-m-d'],
 
-            "included" => ['required', 'array'],
-            "included.*.attributes.quantity" => ['required', 'integer', 'min:1'],
-            "included.*.attributes.id" => ['required', 'integer', 'exists:items,id']
+            "included" => ['required', 'array', new CheckItemQuantity],
+            "included.*.attributes.id" => ['required', 'integer', 'exists:items,id', 'distinct'],
+            "included.*.attributes.quantity" => ['required', 'int', 'min:1']
         ];
     }
 
-    public function messages(): array
+    public function attributes(): array
     {
         return [
-            "data.attributes.dueDate.required" => 'The due date field is required',
-            "data.attributes.dueDate.date" => 'The due date field has to be a date',
-            "data.attributes.dueDate.date_format" => 'The due date format is invalid',
-
-            "data.attributes.purpose.required" => 'The purpose field is required',
-            "data.attributes.purpose.string" => 'The purpose field has to be a string',
-
-            "included.*.attributes.quantity.required" => "The quantity field is required",
-            "included.*.attributes.quantity.integer" => "The quantity field has to be an integer",
-            "included.*.attributes.quantity.min" => "The quantity field minimum is 1",
-
-            "included.*.attributes.id.required" => "The item id field is required",
-            "included.*.attributes.id.integer" => "The item id field has to be an integer",
-            "included.*.attributes.id.exists" => "The item id does not exist ",
+            "data.attributes.purpose" => "purpose",
+            "data.attributes.dueDate" => "due date",
+            "included.*.attributes.quantity" => "quantity",
+            "included.*.attributes.id" => "item id"
         ];
     }
 }
