@@ -2,9 +2,10 @@
 
 namespace App\Policies;
 
+use App\Http\Requests\Api\v1\User\UpdateUserRequest;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
-
+use Symfony\Component\HttpFoundation\Request;
 
 class UserPolicy
 {
@@ -27,18 +28,8 @@ class UserPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function updateWithAttributes(User $user, array $attributes):bool
+    public function update(User $user): bool
     {
-        // if (!$user->isAdmin()) {
-        //     return false;
-        // }
-
-        
-        //  dd(array_key_exists('data.attributes.role', $attributes));
-        // if ($user->isAdmin() && array_key_exists('role', $attributes)) {
-        //     return false;
-        // }
-
-        return true;
+        return $user->isAdmin(); 
     }
 }

@@ -19,7 +19,7 @@ class ItemResource extends JsonResource
             'id' => $this->id,
             'attributes' => [
                 'name' => $this->name,
-                'quantity' => $this->quantity,
+                'stock' => $this->stock,
                 $this->mergeWhen(
                     $request->routeIs("item.show"),
                     [

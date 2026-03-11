@@ -6,6 +6,7 @@ use App\Http\Requests\Api\v1\User\UpdateUserRequest;
 use App\Http\Resources\Api\v1\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController
 {
@@ -29,5 +30,16 @@ class UserController
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateUserRequest $request, User $user) {}
+    public function update(UpdateUserRequest $request, User $user)
+    {
+
+        $userAttributes = collect($request->input("data.attributes"))->toArray();
+
+        $user->update($userAttributes);
+
+        if (Auth::user()->isRoot()) {
+            $user->roles()->sync($request->input("relationships.roles")); 
+        }
+        
+    }
 }

@@ -6,6 +6,8 @@ use App\Http\Filters\Api\V1\QueryFilter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Item extends Model
 {
@@ -15,7 +17,7 @@ class Item extends Model
     protected $fillable = [
         'name',
         'description',
-        'quantity',
+        'stock',
         'comment',
         'projects'
     ];
@@ -25,18 +27,30 @@ class Item extends Model
     ];
 
 
-    public function orders()
+    public function orders(): HasMany
     {
         return $this->hasMany(Order::class);
     }
 
-    public function categories()
+    public function categories(): BelongsToMany
     {
         return $this->belongsToMany(Category::class);
     }
 
-    public function scopeFilter(Builder $builder, QueryFilter $filters)
+    public function scopeFilter(Builder $builder, QueryFilter $filters): Builder
     {
-         return $filters->apply($builder);
+        return $filters->apply($builder);
+    }
+
+    public static function decreaseStock($itemId, $orderQuantity): void
+    {
+        Item::where('id', $itemId) 
+            ->decrement('stock', $orderQuantity);
+    }
+
+       public static function incrementStock($itemId, $orderQuantity): void
+    {
+        Item::where('id', $itemId)
+            ->increment('stock', $orderQuantity);
     }
 }

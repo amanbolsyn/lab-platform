@@ -19,9 +19,9 @@ class CartResource extends JsonResource
             'id' => $this->id,
             'attributes' => [
                 'status' => $this->status,
-                'dueDate' => $this->due_date,
+                'due_date' => $this->due_date,
                 $this->mergeWhen(
-                    $request->routeIs("cart.show"),
+                    $request->routeIs("cart.show", "cart.store", "cart.update"),
                     [
                         "purpose" => $this->purpose,
                         "comment" => $this->comment,
@@ -30,9 +30,12 @@ class CartResource extends JsonResource
 
             ],
             'included' => [
-                new UserResource($this->user),
                 $this->when(
-                    $request->routeIs('cart.show'),
+                    $request->routeIs('cart.index', 'cart.show', 'cart.store', 'cart.update'),
+                    new UserResource($this->user)
+                ),
+                $this->when(
+                    $request->routeIs('cart.show', "cart.store", "cart.update"),
                     OrderResource::collection($this->whenLoaded('orders')),
                 )
             ],

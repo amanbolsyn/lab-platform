@@ -52,4 +52,10 @@ class RegisterUserRequest extends FormRequest
             "relationships.program.id" => "program"
         ];
     }
+
+    public function messages(){
+        return [
+            "data.attributes.email.unique" => "Invalid credentials", 
+        ]; 
+    }
 }

@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\Api\v1\Cart;
 
-use App\Rules\Item\CheckItemQuantity;
+use App\Rules\Item\CheckItemStock;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreCartRequest extends FormRequest
@@ -24,9 +24,9 @@ class StoreCartRequest extends FormRequest
     {
         return [
             "data.attributes.purpose" => ['required', 'string'],
-            "data.attributes.dueDate" => ['required', 'date', 'date_format:Y-m-d'],
+            "data.attributes.due_date" => ['required', 'date', 'date_format:Y-m-d'],
 
-            "included" => ['required', 'array', new CheckItemQuantity],
+            "included" => ['required', 'array', new CheckItemStock],
             "included.*.attributes.id" => ['required', 'integer', 'exists:items,id', 'distinct'],
             "included.*.attributes.quantity" => ['required', 'int', 'min:1']
         ];
@@ -36,7 +36,7 @@ class StoreCartRequest extends FormRequest
     {
         return [
             "data.attributes.purpose" => "purpose",
-            "data.attributes.dueDate" => "due date",
+            "data.attributes.due_date" => "due date",
             "included.*.attributes.quantity" => "quantity",
             "included.*.attributes.id" => "item id"
         ];

@@ -20,7 +20,7 @@ class ItemFactory extends Factory
         return [
             'name' => fake()->word(),
             'description' => fake()->sentence(7),
-            'quantity' => fake()->randomDigit(10),
+            'stock' => fake()->randomDigit(10),
             'comment' => fake()->sentence(10),
         ];
     }
