@@ -31,28 +31,26 @@ class Cart extends Model
         return $this->hasMany(Order::class);
     }
 
-
-    public static function today(): int
-    {
-        return Cart::whereDate('created_at', Carbon::today())->count();
+    public static function totalCarts($start_date, $end_date): int{
+        return Cart::get()->whereBetween('created_at', [$start_date, $end_date])->count();
     }
 
-    public static function yesterday(): int
-    {
-        return Cart::whereDate('created_at', Carbon::yesterday())->count();
-    }
-
-    public static function byMonth()
+    public static function byMonth($start_date, $end_date)
     {
         return Cart::selectRaw('YEAR(created_at) as year, MONTHNAME(created_at) as month, COUNT(*) as total')
-            ->where('created_at', '>=', now()->subYear())
+            ->whereBetween('created_at', [$start_date, $end_date ])
             ->groupBy('year', 'month')
             ->orderBy('year')
             ->orderBy('month')
             ->get();
     }
 
-    public static function byStatus($status):int{
-        return Cart::where("status", $status)->count(); 
+    public static function byStatus($start_date, $end_date)
+    {
+        return Cart::select('status')
+            ->selectRaw('COUNT(*) as total')
+            ->whereBetween('created_at', [$start_date, $end_date ])
+            ->groupBy('status')
+            ->get();
     }
 }

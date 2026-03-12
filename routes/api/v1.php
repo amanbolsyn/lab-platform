@@ -66,7 +66,8 @@ Route::prefix('v1')->group(function () {
     ->name('cart.update');
 
   // dashboard
-  Route::middleware("auth:sanctum")->get('/dashboard', [DashboardController::class, 'index']);
+  Route::middleware("auth:sanctum")->get('/dashboard', [DashboardController::class, 'index'])
+     ->middleware('can:view-stats');
 
   //role routes 
   Route::middleware("auth:sanctum")->get('/roles', [RoleController::class, 'index'])
