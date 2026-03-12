@@ -23,7 +23,6 @@ class UserController
      */
     public function show(User $user)
     {
-
         return new UserResource($user->load('carts'));
     }
 
