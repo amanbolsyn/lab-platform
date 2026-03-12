@@ -48,7 +48,8 @@ Route::prefix('v1')->group(function () {
     ->can('view', 'user')
     ->name('user.show');
   Route::middleware("auth:sanctum")->put("/users/{user}", [UserController::class, 'update'])
-    ->can('update', 'user');
+    ->can('update', 'user')
+    ->name('update.user');
 
 
   // carts routes

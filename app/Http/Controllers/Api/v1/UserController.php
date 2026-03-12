@@ -40,6 +40,8 @@ class UserController
         if (Auth::user()->isRoot()) {
             $user->roles()->sync($request->input("relationships.roles")); 
         }
+
+        return new UserResource($user->load('carts')); 
         
     }
 }

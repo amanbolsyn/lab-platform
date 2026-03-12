@@ -20,11 +20,11 @@ class UserResource extends JsonResource
             'attributes' => [
                 'fullname' => $this->fullname,
                 'email' => $this->when(
-                    $request->routeIs("user.show"),
+                    $request->routeIs("user.show", "update.user"),
                     $this->email
                 ),
                 $this->mergeWhen(
-                    $request->routeIs("user.show", "user.index"),
+                    $request->routeIs("user.show", "user.index", "update.user"),
                     [
                         'program' => $this->program->program,
                         'group' => $this->group,
@@ -33,11 +33,11 @@ class UserResource extends JsonResource
             ],
             'included' => [
                 $this->when(
-                    $request->routeIs("user.show", "user.index"),
+                    $request->routeIs("user.show", "user.index", "update.user"),
                     RoleResource::collection($this->roles)
                 ),
                 $this->when(
-                    $request->routeIs("user.show"),
+                    $request->routeIs("user.show", "update.user"),
                     CartResource::collection($this->whenLoaded('carts')),
                 )
             ],
