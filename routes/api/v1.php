@@ -47,18 +47,22 @@ Route::prefix('v1')->group(function () {
   Route::middleware("auth:sanctum")->get("/users/{user}", [UserController::class, 'show'])
     ->can('view', 'user')
     ->name('user.show');
-  Route::middleware("auth:sanctum")->put("/users/{user}", [UserController::class, 'update']);
+  Route::middleware("auth:sanctum")->put("/users/{user}", [UserController::class, 'update'])
+    ->can('update', 'user');
 
 
   // carts routes
   Route::middleware("auth:sanctum")->get('/carts', [CartController::class, 'index'])
-    ->can('viewAny', Cart::class);
+    ->can('viewAny', Cart::class)
+    ->name('cart.index');
   Route::middleware("auth:sanctum")->get('/carts/{cart}', [CartController::class, 'show'])
     ->can('view', 'cart')
     ->name("cart.show");
-  Route::middleware("auth:sanctum")->post('/carts', [CartController::class, 'store']);
+  Route::middleware("auth:sanctum")->post('/carts', [CartController::class, 'store'])
+    ->name('cart.store');
   Route::middleware("auth:sanctum")->put('/carts/{cart}', [CartController::class, 'update'])
-    ->can('update', 'cart');
+    ->can('update', 'cart')
+    ->name('cart.update');
 
   // dashboard
   Route::middleware("auth:sanctum")->get('/dashboard', [DashboardController::class, 'index']);

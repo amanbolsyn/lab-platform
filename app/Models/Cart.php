@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Cart extends Model
 {
@@ -12,15 +14,15 @@ class Cart extends Model
     public const STATUS_LEVELS = ['pending', 'approved', 'rejected', 'returned'];
     
     public $fillable = [
-        'due_date', 'purpose'
+        'due_date', 'purpose', 'comment', 'status'
     ];
 
-    public function user()
+    public function user() : BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
-    public function orders()
+    public function orders() : HasMany
     {
         return $this->hasMany(Order::class);
     }

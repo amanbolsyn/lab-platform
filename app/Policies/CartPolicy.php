@@ -29,15 +29,15 @@ class CartPolicy
      */
     public function create(User $user): bool
     {
-        return false;
+        return true;
     }
 
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user): bool
-    {
-        return $user->isAdmin(); 
+    public function update(User $user, Cart $cart): bool
+    {   
+        return $user->isAdmin() && ($cart['status'] === 'pending' || $cart['status'] === 'approved');
     }
 
 }

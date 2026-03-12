@@ -2,7 +2,10 @@
 
 namespace App\Http\Requests\Api\v1\Cart;
 
+use App\Models\Cart;
+use App\Rules\Item\CheckItemStock;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateCartRequest extends FormRequest
 {
@@ -11,7 +14,7 @@ class UpdateCartRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +25,24 @@ class UpdateCartRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            "data.attributes.due_date" => ['date', 'date_format:Y-m-d'],
+            "data.attributes.comment" => ["string"],
+            "data.attributes.status" => ["required", Rule::in(Cart::STATUS_LEVELS)],
+
+            "included" => ['array'],
+            "included.*.attributes.id" => ['required', 'integer', 'exists:items,id', 'distinct',],
+            "included.*.attributes.quantity" => ['required', 'int', 'min:0']
+        ];
+    }
+
+    public function attributes(): array
+    {
+        return [
+            "data.attributes.due_date" => "due date",
+            "data.attributes.comment" => "comment",
+            "data.attributes.status" => "status", 
+            "included.*.attributes.quantity" => "quantity",
+            "included.*.attributes.id" => "item id"
         ];
     }
 }

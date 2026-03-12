@@ -24,6 +24,14 @@ class ItemController extends Controller
     }
 
     /**
+     * Display the specified resource.
+     */
+    public function show(Item $item)
+    {
+        return new ItemResource($item);
+    }
+
+    /**
      * Store a newly created resource in storage.
      */
     public function store(StoreItemRequest $request)
@@ -34,7 +42,7 @@ class ItemController extends Controller
             "description" => $request->input("data.attributes.description"),
             "quantity" => $request->input("data.attributes.quantity"),
             'comment' => $request->input("data.attributes.comment"),
-            'projects' => $request->input("data.attributes.projects"), 
+            'projects' => $request->input("data.attributes.projects"),
         ];
 
         $item = Item::create($model);
@@ -45,24 +53,17 @@ class ItemController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(Item $item)
-    {
-        return new ItemResource($item);
-    }
-
-    /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateItemRequest $request, Item $item) {
+    public function update(UpdateItemRequest $request, Item $item)
+    {
 
-          $model = [
+        $model = [
             "name" => $request->input("data.attributes.name"),
             "description" => $request->input("data.attributes.description"),
             "quantity" => $request->input("data.attributes.quantity"),
             'comment' => $request->input("data.attributes.comment"),
-            'projects' => $request->input("data.attributes.projects"), 
+            'projects' => $request->input("data.attributes.projects"),
         ];
 
         $item->update($model);
@@ -77,6 +78,7 @@ class ItemController extends Controller
     public function destroy(Item $item)
     {
         $item->delete();
+        
         return $this->success("Item deleted successfully");
     }
 }

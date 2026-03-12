@@ -19,7 +19,7 @@ return new class extends Migration
               $table->string('purpose');
               $table->enum('status', Cart::STATUS_LEVELS)->default('pending');
               $table->date('due_date'); 
-              $table->string('comment'); 
+              $table->string('comment')->nullable(); 
               $table->timestamps();
         });
     }

@@ -18,7 +18,6 @@ class OrderFactory extends Factory
      */
     public function definition(): array
     {
-
         return [
             'cart_id' => Cart::inRandomOrder()->value('id'),
             'item_id' => Item::inRandomOrder()->value('id'),

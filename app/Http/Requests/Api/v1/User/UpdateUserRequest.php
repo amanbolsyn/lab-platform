@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Api\v1\User;
 
 use App\Models\User;
+use App\Rules\CheckRoles;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateUserRequest extends FormRequest
@@ -12,10 +13,7 @@ class UpdateUserRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return $this->user()->can(
-            'updateWithAttributes',
-            [User::class, $this->all()]
-        );
+        return  true;
     }
 
     /**
@@ -28,15 +26,16 @@ class UpdateUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "data.attributes.fullname" => 'required|string',
-            "data.attributes.role" => 'string',
+            "data.attributes.fullname" => ['required', 'string'],
+            "relationships.roles" => ['array', 'required',  new CheckRoles],
+            "relationships.roles.*" => [ 'exists:roles,id', 'integer']
         ];
     }
    
     public function attributes(){
         return [
             "data.attributes.fullname" => "fullname",
-            "data.attributes.role" => "string"
+            "relationships.roles" => "roles",
         ];
     }
 }

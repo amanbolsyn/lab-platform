@@ -24,7 +24,7 @@ class StoreItemRequest extends FormRequest
         return [
             "data.attributes.name" => ['required', 'string'],
             "data.attributes.description" => ['required', 'string'],
-            "data.attributes.quantity" => ['required', 'integer'],
+            "data.attributes.stock" => ['required', 'int'],
             "data.attributes.comment" => ['string'],
             "data.attributes.projects" => ['array', 'max:5'],
 
@@ -40,7 +40,7 @@ class StoreItemRequest extends FormRequest
         return [
             "data.attributes.name" => 'name',
             "data.attributes.description" => 'description',
-            "data.attributes.quantity" => 'quantity',
+            "data.attributes.stock" => 'stock',
             "data.attributes.comment" => 'comment',
             "data.attributes.projects" => 'projects',
 

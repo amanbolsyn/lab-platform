@@ -7,6 +7,8 @@ use App\Http\Requests\Api\v1\Auth\StoreSessionRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 
+use function Laravel\Prompts\error;
+
 class SessionController extends Controller
 {
     use ApiResponses;
@@ -20,7 +22,7 @@ class SessionController extends Controller
         $user = User::firstWhere('email', $request["data.attributes.email"]);
 
         return $this->success("Authenticated", [
-            'token' => $user->createToken('token' . $user->email , ['*'],  now()->plus(minutes:40))->plainTextToken,
+            'token' => $user->createToken('token' . $user->email, ['*'],  now()->plus(minutes: 40))->plainTextToken,
         ]);
     }
 
@@ -29,8 +31,8 @@ class SessionController extends Controller
      */
     public function destroy(Request $request)
     {
-        $request->user()->currentAccessToken()->delete(); 
+        $request->user()->currentAccessToken()->delete();
 
-        return $this->success("Logged out"); 
+        return $this->success("Logged out");
     }
 }

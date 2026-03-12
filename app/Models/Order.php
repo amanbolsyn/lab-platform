@@ -12,8 +12,9 @@ class Order extends Pivot
     
     use HasFactory;
 
-    //order belongs to one cart 
-    //order has one item
+   public $fillable = [
+        'quantity', 'item_id', 'cart_id'
+    ];
 
     public function cart()
     {

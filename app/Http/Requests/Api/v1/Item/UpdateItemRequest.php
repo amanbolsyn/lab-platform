@@ -22,14 +22,15 @@ class UpdateItemRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "data.attributes.name" => 'required|string',
-            "data.attributes.description" => 'required|string',
-            "data.attributes.quantity" => 'required|integer',
-            "data.attributes.comment" => 'string',
-            "data.attributes.projects" => 'array|max:5',
+            "data.attributes.name" => ['required', 'string'],
+            "data.attributes.description" => ['required', 'string'],
+            "data.attributes.stock" => ['required', 'integer'],
+            "data.attributes.comment" => ['string'],
+            "data.attributes.projects" => ['array', 'max:5'],
             "data.attributes.categories" => 'array',
 
-            'relationships.categories.*' => 'exists:categories,id',
+            "relationships.categories" => ['array'],
+            'relationships.categories.*' => ['exists:categories,id'],
         ];
     }
 
@@ -38,7 +39,7 @@ class UpdateItemRequest extends FormRequest
         return [
             "data.attributes.name" => 'name',
             "data.attributes.description" => 'description',
-            "data.attributes.quantity" => 'quantity',
+            "data.attributes.stock" => 'quantity',
             "data.attributes.comment" => 'comment',
             "data.attributes.projects" => 'projects',
 

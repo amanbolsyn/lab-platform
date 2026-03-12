@@ -22,15 +22,15 @@ class UpdateProgramRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "data.attributes.name" => ['required', 'string'],
-            "data.attributes.code" => ['required', 'string'],
+            "data.attributes.program" => ['required', 'string', "max:255", "unique:programs,program"],
+            "data.attributes.code" => ['required', 'string', "max:63", "unique:programs,code"],
         ];
     }
 
     public function attributes()
     {
         return [
-            "data.attributes.name" => "name",
+            "data.attributes.program" => "program",
             "data.attributes.code" => "code"
         ];
     }

@@ -22,14 +22,14 @@ class StoreCategoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "data.attributes.name" => ['required', 'string'],
+            "data.attributes.category" => ['required', 'string', 'max:255', "unique:categories,category"],
         ];
     }
     
     public function attributes()
     {
         return [
-            "data.attributes.name" => "name", 
+            "data.attributes.category" => "category", 
         ];
     }
 }

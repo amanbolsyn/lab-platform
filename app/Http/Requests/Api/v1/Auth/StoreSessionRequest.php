@@ -22,16 +22,25 @@ class StoreSessionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'data.attributes.email' => ['required', 'string', 'email', 'ends_with:@astanait.edu.kz'],
+            "data.attributes.email" => ["required", "email", "max:255", "ends_with:@astanait.edu.kz", "exists:users,email"],
             'data.attributes.password' => ['required', 'string', 'min:8'],
         ];
     }
 
 
-    public function attributs(){
+    public function attributs()
+    {
         return [
-            "data.attributes.email" => "email", 
+            "data.attributes.email" => "email",
             "data.attributes.password" => "password"
         ];
     }
+
+    public function messages()
+    {
+        return [
+            "data.attributes.email.exists" => "Invalid credentials"
+            ];
+    }
+
 }

@@ -26,7 +26,7 @@ class UserResource extends JsonResource
                 $this->mergeWhen(
                     $request->routeIs("user.show", "user.index"),
                     [
-                        'program' => $this->program->name,
+                        'program' => $this->program->program,
                         'group' => $this->group,
                     ]
                 )

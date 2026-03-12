@@ -18,21 +18,14 @@ class RegisterController extends Controller
      */
     public function store(RegisterUserRequest $request)
     {
-        $attributes = collect($request->input('data.attributes'));
+        $userAttributes = collect($request->input('data.attributes'));
+        $programId = ['program_id' => $request->input('relationships.program.id')]; 
 
-        $model = $attributes->only([
-            'fullname',
-            'email',
-            'password',
-            'group',
-            'read_safety_precautions',
-            'program_id'
+        $user = User::create(array_merge($userAttributes->toArray(), $programId));
 
-        ])->toArray();
-
-        $user = User::create($model);
         $role = Role::where('role', 'user')->first();
         $user->roles()->attach($role->id);
+
 
         return $this->success("Registred", [
             'token' => $user->createToken('token' . $user->email, ['*'],  now()->plus(minutes: 40))->plainTextToken,
