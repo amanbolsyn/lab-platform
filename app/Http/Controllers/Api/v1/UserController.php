@@ -13,9 +13,11 @@ class UserController
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return UserResource::collection(User::with('roles')->paginate(15));
+        $fullname = $request->input('fullname');
+
+        return UserResource::collection(User::where('fullname', 'like', "%$fullname%")->with('roles')->paginate(15));
     }
 
     /**
