@@ -14,7 +14,7 @@ class ItemFilter extends QueryFilter
 
       foreach ($values as $value) {
          $this->builder->whereHas('categories', function ($query) use ($value) {
-            $query->where('categories.name', $value);
+            $query->where('categories.category', $value);
          });
       }
 
