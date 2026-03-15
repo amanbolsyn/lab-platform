@@ -14,13 +14,148 @@
         "version": "1.0.0"
     },
     "paths": {
+        "/api/v1/carts": {
+            "get": {
+                "tags": [
+                    "Carts"
+                ],
+                "summary": "Get all carts",
+                "operationId": "aad464a7b31a5d147cd4cb75ae9c3307",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthenticated"
+                    },
+                    "403": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Carts"
+                ],
+                "summary": "Create a cart",
+                "operationId": "d4c71c331fcdc282d7e6cefe387fcef9",
+                "requestBody": {
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthenticated"
+                    },
+                    "403": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/carts/{id}": {
+            "get": {
+                "tags": [
+                    "Carts"
+                ],
+                "summary": "Get a cart",
+                "operationId": "9debfa0d9bd0742a7ab924d79607c4ca",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthenticated"
+                    },
+                    "403": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/ResourceNotFound"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Carts"
+                ],
+                "summary": "Update a cart",
+                "operationId": "914db0c2f278092dde0a94f837227a8a",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthenticated"
+                    },
+                    "403": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/ResourceNotFound"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/api/v1/categories": {
             "get": {
                 "tags": [
                     "Categories"
                 ],
                 "summary": "Get categories list",
-                "operationId": "577d837eb989c885ca5a41e01f008908",
+                "operationId": "36450a1d5f001d4836b414288961aef9",
                 "responses": {
                     "200": {
                         "description": "Successful operation",
@@ -29,31 +164,7 @@
                                 "schema": {
                                     "type": "array",
                                     "items": {
-                                        "$ref": "#/components/schemas/Category"
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/api/v1/programs": {
-            "get": {
-                "tags": [
-                    "Programs"
-                ],
-                "summary": "Get programs list",
-                "operationId": "20a8808c4bba59de72a4f5e72f0bfebb",
-                "responses": {
-                    "200": {
-                        "description": "Successful operation",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "array",
-                                    "items": {
-                                        "$ref": "#/components/schemas/Program"
+                                        "$ref": "#/components/schemas/CategoryResource"
                                     }
                                 }
                             }
@@ -63,16 +174,16 @@
             },
             "post": {
                 "tags": [
-                    "Programs"
+                    "Categories"
                 ],
-                "summary": "Create program",
-                "operationId": "1674f01f040fd03b4c917f525d40627e",
+                "summary": "Create a category",
+                "operationId": "01a5697feaa18f45c153f9b031fb3941",
                 "requestBody": {
                     "required": true,
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/ProgramRequest"
+                                "$ref": "#/components/schemas/CategoryRequest"
                             }
                         }
                     }
@@ -85,25 +196,36 @@
                                 "schema": {
                                     "type": "array",
                                     "items": {
-                                        "$ref": "#/components/schemas/Program"
+                                        "$ref": "#/components/schemas/CategoryResource"
                                     }
                                 }
                             }
                         }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthenticated"
+                    },
+                    "403": {
+                        "$ref": "#/components/responses/Unauthorized"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             }
         },
-        "/api/v1/programs/{id}": {
+        "/api/v1/categories/{id}": {
             "put": {
                 "tags": [
-                    "Programs"
+                    "Categories"
                 ],
-                "summary": "Edit a program",
-                "operationId": "ff5507145656ec8b9301d924a3bdb5e9",
+                "summary": "Edit a category",
+                "operationId": "40681e231320ef48f0f6c0e032cbbc21",
                 "parameters": [
                     {
-                        "$ref": "#/components/parameters/IdParameter"
+                        "$ref": "#/components/parameters/id"
                     }
                 ],
                 "requestBody": {
@@ -111,7 +233,7 @@
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/ProgramRequest"
+                                "$ref": "#/components/schemas/CategoryRequest"
                             }
                         }
                     }
@@ -124,7 +246,7 @@
                                 "schema": {
                                     "type": "array",
                                     "items": {
-                                        "$ref": "#/components/schemas/Program"
+                                        "$ref": "#/components/schemas/CategoryResource"
                                     }
                                 }
                             }
@@ -139,17 +261,22 @@
                     "404": {
                         "$ref": "#/components/responses/ResourceNotFound"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             },
             "delete": {
                 "tags": [
-                    "Programs"
+                    "Categories"
                 ],
-                "summary": "Delete a program",
-                "operationId": "69342fcce59af45b4319e93b6e5b8d90",
+                "summary": "Delete a category",
+                "operationId": "f0c810e85b6c1f4ebf059bd7a4baa03f",
                 "parameters": [
                     {
-                        "$ref": "#/components/parameters/IdParameter"
+                        "$ref": "#/components/parameters/id"
                     }
                 ],
                 "responses": {
@@ -165,19 +292,672 @@
                     "404": {
                         "$ref": "#/components/responses/ResourceNotFound"
                     }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/dashboard": {
+            "get": {
+                "tags": [
+                    "Dashboard"
+                ],
+                "summary": "Get cart analytics",
+                "operationId": "ce4250efc221e2170893a6e0c827121c",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthenticated"
+                    },
+                    "403": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/items": {
+            "get": {
+                "tags": [
+                    "Items"
+                ],
+                "summary": "Get all items",
+                "operationId": "637b0f760ccf129ec49b9298b9f36ca1",
+                "requestBody": {},
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
                 }
+            },
+            "post": {
+                "tags": [
+                    "Items"
+                ],
+                "summary": "Create an item",
+                "operationId": "55b1c5fbdedc7e0c236673440ac40753",
+                "requestBody": {
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthenticated"
+                    },
+                    "403": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/items/{id}": {
+            "get": {
+                "tags": [
+                    "Items"
+                ],
+                "summary": "Get an item",
+                "operationId": "c1cfc4e4ebcb332675648c79ef616c5f",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/id"
+                    }
+                ],
+                "requestBody": {
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/ResourceNotFound"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Items"
+                ],
+                "summary": "Edit an item",
+                "operationId": "504a891fbf74db4b7592f99b9a0f1df3",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/id"
+                    }
+                ],
+                "requestBody": {
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthenticated"
+                    },
+                    "403": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/ResourceNotFound"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/programs": {
+            "get": {
+                "tags": [
+                    "Programs"
+                ],
+                "summary": "Get programs list",
+                "operationId": "e1f79801c63002bee942e573a433a875",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/ProgramResource"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Programs"
+                ],
+                "summary": "Create program",
+                "operationId": "f920008d2bcb8746147734423b033d6f",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ProgramRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/ProgramResource"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/programs/{id}": {
+            "put": {
+                "tags": [
+                    "Programs"
+                ],
+                "summary": "Edit a program",
+                "operationId": "d32d74f132a87f68557675caceea91e5",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/id"
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ProgramRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Program"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthenticated"
+                    },
+                    "403": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/ResourceNotFound"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Programs"
+                ],
+                "summary": "Delete a program",
+                "operationId": "c5a0864d6098007414aec3bdd1b003d1",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/SuccessDelete"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthenticated"
+                    },
+                    "403": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/ResourceNotFound"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/register": {
+            "post": {
+                "tags": [
+                    "Register"
+                ],
+                "summary": "Register new user",
+                "operationId": "40b78b9ff6f4578755c45404fe580a33",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/RegisterRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/roles": {
+            "get": {
+                "tags": [
+                    "Roles"
+                ],
+                "summary": "Get all available roles and their numbers",
+                "operationId": "43ec0fc9920186034af4b2d0d392cb5f",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/RoleResource"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/login": {
+            "post": {
+                "tags": [
+                    "Session"
+                ],
+                "summary": "Create a session",
+                "operationId": "e69a848ffdf406b5ea03cfb6fb2c308d",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "data"
+                                ],
+                                "properties": {
+                                    "data": {
+                                        "required": [
+                                            "attributes"
+                                        ],
+                                        "properties": {
+                                            "attributes": {
+                                                "required": [
+                                                    "email",
+                                                    "password"
+                                                ],
+                                                "properties": {
+                                                    "email": {
+                                                        "type": "string",
+                                                        "format": "email"
+                                                    },
+                                                    "password": {
+                                                        "type": "string",
+                                                        "format": "password"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "examples": {
+                                "Standard user": {
+                                    "summary": "User Login",
+                                    "value": {
+                                        "data": {
+                                            "attributes": {
+                                                "email": "user@astanait.edu.kz",
+                                                "password": "User123."
+                                            }
+                                        }
+                                    }
+                                },
+                                "Admin": {
+                                    "summary": "Admin Login",
+                                    "value": {
+                                        "data": {
+                                            "attributes": {
+                                                "email": "admin@astanait.edu.kz",
+                                                "password": "Admin123."
+                                            }
+                                        }
+                                    }
+                                },
+                                "Root": {
+                                    "summary": "Root Login",
+                                    "value": {
+                                        "data": {
+                                            "attributes": {
+                                                "email": "root@astanait.edu.kz",
+                                                "password": "Root123."
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "required": [
+                                        "data",
+                                        "message",
+                                        "statusCode"
+                                    ],
+                                    "properties": {
+                                        "data": {
+                                            "required": [
+                                                "token"
+                                            ],
+                                            "properties": {
+                                                "token": {
+                                                    "type": "object"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Authenticated"
+                                        },
+                                        "statusCode": {
+                                            "type": "integer",
+                                            "example": 200
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/ResourceNotFound"
+                    }
+                }
+            }
+        },
+        "/api/v1/logout": {
+            "post": {
+                "tags": [
+                    "Session"
+                ],
+                "summary": "Destroy a session",
+                "operationId": "0e1b48de674e7bea07a8abc1c8f9d622",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "required": [
+                                        "data",
+                                        "message",
+                                        "statusCode"
+                                    ],
+                                    "properties": {
+                                        "data": {},
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Logget out"
+                                        },
+                                        "statusCode": {
+                                            "type": "integer",
+                                            "example": 200
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/users": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Get all users",
+                "operationId": "e442bb38fa673096cac902307007203e",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthenticated"
+                    },
+                    "403": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/user/{id}": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Get a user",
+                "operationId": "d91639e1db3c4cd22f3c9b63b6c38bf4",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthenticated"
+                    },
+                    "403": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/ResourceNotFound"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Update a user",
+                "operationId": "faeb54c1a5c8711ab7f64202e9d390ed",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthenticated"
+                    },
+                    "403": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/ResourceNotFound"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             }
         }
     },
     "components": {
         "schemas": {
-            "ProgramRequest": {
+            "CategoryRequest": {
                 "required": [
-                    "name",
-                    "code"
+                    "data"
                 ],
                 "properties": {
                     "data": {
+                        "required": [
+                            "attributes"
+                        ],
+                        "properties": {
+                            "attributes": {
+                                "$ref": "#/components/schemas/Category"
+                            }
+                        },
+                        "type": "object"
+                    }
+                },
+                "type": "object"
+            },
+            "ProgramRequest": {
+                "required": [
+                    "data"
+                ],
+                "properties": {
+                    "data": {
+                        "required": [
+                            "attributes"
+                        ],
                         "properties": {
                             "attributes": {
                                 "$ref": "#/components/schemas/Program"
@@ -188,21 +968,150 @@
                 },
                 "type": "object"
             },
+            "RegisterRequest": {
+                "required": [
+                    "data"
+                ],
+                "properties": {
+                    "data": {
+                        "required": [
+                            "attributes"
+                        ],
+                        "properties": {
+                            "attributes": {
+                                "$ref": "#/components/schemas/User"
+                            }
+                        },
+                        "type": "object"
+                    }
+                },
+                "type": "object"
+            },
+            "CategoryResource": {
+                "required": [
+                    "data"
+                ],
+                "properties": {
+                    "data": {
+                        "required": [
+                            "id",
+                            "type",
+                            "attributes"
+                        ],
+                        "properties": {
+                            "type": {
+                                "type": "string",
+                                "example": "category"
+                            },
+                            "id": {
+                                "type": "integer",
+                                "example": 1
+                            },
+                            "attributes": {
+                                "type": "object",
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/Category"
+                                    }
+                                ]
+                            }
+                        },
+                        "type": "object"
+                    }
+                },
+                "type": "object"
+            },
+            "ProgramResource": {
+                "required": [
+                    "data"
+                ],
+                "properties": {
+                    "data": {
+                        "required": [
+                            "id",
+                            "type",
+                            "attributes"
+                        ],
+                        "properties": {
+                            "type": {
+                                "type": "string",
+                                "example": "program"
+                            },
+                            "id": {
+                                "type": "integer",
+                                "example": 1
+                            },
+                            "attributes": {
+                                "type": "object",
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/Program"
+                                    }
+                                ]
+                            }
+                        },
+                        "type": "object"
+                    }
+                },
+                "type": "object"
+            },
+            "RoleResource": {
+                "required": [
+                    "data",
+                    "included"
+                ],
+                "properties": {
+                    "data": {
+                        "required": [
+                            "id",
+                            "type",
+                            "attributes"
+                        ],
+                        "properties": {
+                            "type": {
+                                "type": "string",
+                                "example": "role"
+                            },
+                            "id": {
+                                "type": "integer",
+                                "example": 1
+                            },
+                            "attributes": {
+                                "type": "object",
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/Role"
+                                    }
+                                ]
+                            }
+                        },
+                        "type": "object"
+                    },
+                    "included": {
+                        "required": [
+                            "users_count"
+                        ],
+                        "properties": {
+                            "users_count": {
+                                "type": "integer",
+                                "example": 4
+                            }
+                        },
+                        "type": "object"
+                    }
+                },
+                "type": "object"
+            },
             "Category": {
                 "required": [
-                    "id",
                     "name"
                 ],
                 "properties": {
-                    "id": {
-                        "description": "Cateogory ID",
-                        "type": "integer",
-                        "example": "1"
-                    },
-                    "name": {
+                    "category": {
                         "description": "Category name",
                         "type": "string",
                         "maxLength": 255,
+                        "uniqueItems": true,
                         "example": "Motors"
                     }
                 },
@@ -210,8 +1119,7 @@
             },
             "Program": {
                 "required": [
-                    "id",
-                    "name",
+                    "program",
                     "code"
                 ],
                 "properties": {
@@ -229,11 +1137,77 @@
                     }
                 },
                 "type": "object"
+            },
+            "Role": {
+                "required": [
+                    "role"
+                ],
+                "properties": {
+                    "role": {
+                        "description": "Role name",
+                        "type": "string",
+                        "example": "user"
+                    }
+                },
+                "type": "object"
+            },
+            "User": {
+                "required": [
+                    "fullname",
+                    "email",
+                    "group",
+                    "password",
+                    "read_safety_precautions"
+                ],
+                "properties": {
+                    "fullname": {
+                        "description": "User's full name",
+                        "type": "string",
+                        "maxLength": 63,
+                        "example": "John Doe"
+                    },
+                    "email": {
+                        "description": "User's email (AITU domain only)",
+                        "type": "string",
+                        "format": "email",
+                        "maxLength": 255,
+                        "uniqueItems": true,
+                        "example": "user@astanait.edu.kz"
+                    },
+                    "group": {
+                        "description": "User's group number",
+                        "type": "string",
+                        "maxLength": 17,
+                        "pattern": "/^[A-Za-z]+-[0-9]+$/",
+                        "example": "SE-2318"
+                    },
+                    "password": {
+                        "description": "Password",
+                        "type": "string",
+                        "minLength": 8,
+                        "example": "User123."
+                    },
+                    "password_confirmation": {
+                        "description": "Password",
+                        "type": "string",
+                        "minLength": 8,
+                        "example": "User123."
+                    },
+                    "read_safety_precautions": {
+                        "description": "Indicates if user read the provided safety instructions",
+                        "type": "boolean",
+                        "enum": [
+                            true
+                        ],
+                        "example": true
+                    }
+                },
+                "type": "object"
             }
         },
         "responses": {
             "ResourceNotFound": {
-                "description": "Resource doesn't exists",
+                "description": "Not found operation",
                 "content": {
                     "application/json": {
                         "schema": {
@@ -298,7 +1272,7 @@
             }
         },
         "parameters": {
-            "IdParameter": {
+            "id": {
                 "name": "id",
                 "in": "path",
                 "description": "Resource id parameter",
@@ -307,16 +1281,51 @@
                     "type": "integer"
                 }
             }
+        },
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "in": "header",
+                "scheme": "bearer"
+            }
         }
     },
     "tags": [
+        {
+            "name": "Carts",
+            "description": "Carts"
+        },
         {
             "name": "Categories",
             "description": "Categories"
         },
         {
+            "name": "Dashboard",
+            "description": "Dashboard"
+        },
+        {
+            "name": "Items",
+            "description": "Items"
+        },
+        {
             "name": "Programs",
             "description": "Programs"
+        },
+        {
+            "name": "Register",
+            "description": "Register"
+        },
+        {
+            "name": "Roles",
+            "description": "Roles"
+        },
+        {
+            "name": "Session",
+            "description": "Session"
+        },
+        {
+            "name": "Users",
+            "description": "Users"
         }
     ]
 }

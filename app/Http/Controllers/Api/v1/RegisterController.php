@@ -7,6 +7,7 @@ use App\Http\Resources\Api\v1\UserResource;
 use App\Models\Role;
 use App\Models\User;
 use App\Traits\ApiResponses;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 
 class RegisterController extends Controller
@@ -26,6 +27,7 @@ class RegisterController extends Controller
         $role = Role::where('role', 'user')->first();
         $user->roles()->attach($role->id);
 
+        // event(new Registered($user));
 
         return $this->success("Registred", [
             'token' => $user->createToken('token' . $user->email, ['*'],  now()->plus(minutes: 40))->plainTextToken,

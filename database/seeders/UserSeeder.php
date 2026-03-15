@@ -18,10 +18,6 @@ class UserSeeder extends Seeder
         $adminRole = Role::where('role', 'admin')->first();
         $rootRole = Role::where('role', 'root')->first();
 
-        // Create normal users
-        // User::factory(10)->create()->each(function ($user) use ($userRole) {
-        //     $user->roles()->attach($userRole->id);
-        // });
 
         // Create one user
         $user = User::factory()->create([
