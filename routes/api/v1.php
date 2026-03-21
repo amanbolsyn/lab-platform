@@ -21,6 +21,8 @@ Route::prefix('v1')->group(function () {
 
   // register routes
   Route::post('/register', [RegisterController::class, 'store']);
+  Route::get('/auth/verify-email/{id}/{hash}', [RegisterController::class, 'verifyEmail'])->name('verification.verify');
+  Route::post('/auth/resend-verification', [RegisterController::class, 'sendVerificaton']); 
   
   // session routes
   Route::post('/login', [SessionController::class, 'store']);
@@ -32,7 +34,7 @@ Route::prefix('v1')->group(function () {
     ->name('item.index');
   Route::get('/items/{item}', [ItemController::class, 'show'])
     ->name('item.show');
-  Route::middleware("auth:sanctum")->post('/items', [ItemController::class, 'store'])
+  Route::middleware("auth:sanctum", "verified")->post('/items', [ItemController::class, 'store'])
     ->can('create', Item::class);
   Route::middleware("auth:sanctum")->put('/items/{item}', [ItemController::class, 'update'])
     ->can('update', Item::class);
