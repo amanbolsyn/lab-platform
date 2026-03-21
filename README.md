@@ -9,38 +9,36 @@ Clone the repository
 git clone https://github.com/amanbolsyn/lab-platform.git
 ```
 
-Go to the cloned directory
+Build docker containers
 ```bash
-cd lab-platform/
+make install
 ```
 
-Install all the dependencies 
+Start docker containers
 ```bash
-composer install
-npm install
+make run
 ```
 
-Create local env file
+Stop docker containers
 ```bash
-cp .env.example .env
+make down
 ```
 
-Run the composer
+Run new db migrations 
 ```bash
-composer run dev
+make migrate
 ```
 
-Generate application key
-```bash
-php artisan key:generate
+Seed the database
+```
+make seed
 ```
 
-Migrate and seed the database
+ Run already migreated migrations
 ```
-php artisan migrate:fresh --seed
+make fresh
 ```
 
-Change APP_TIMZONE to sutiable timezone inside .env file
 
 ## Roles 
 
