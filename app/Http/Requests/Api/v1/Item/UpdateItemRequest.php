@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Api\v1\Item;
 
+use App\Rules\Image\ImageNum;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateItemRequest extends FormRequest
@@ -31,6 +32,12 @@ class UpdateItemRequest extends FormRequest
 
             "relationships.categories" => ['array'],
             'relationships.categories.*' => ['exists:categories,id'],
+
+            "relationships.images" => [new ImageNum],
+            "relationships.images.old" => ["array"],
+            "relationships.images.new"  => ["array"],
+            "relationships.images.old.*" => ['exists:images,id', 'distinct'],
+            "relationships.images.new.*" => ['image', 'mimes:jpeg,png,jpg', 'max:2048'],
         ];
     }
 
@@ -43,7 +50,13 @@ class UpdateItemRequest extends FormRequest
             "data.attributes.comment" => 'comment',
             "data.attributes.projects" => 'projects',
 
+            'relationships.categories' => 'categories',
             'relationships.categories.*' => 'categories',
+
+            "relationships.images" => 'images',
+
+            "relationships.images.old.*" => "images_old",
+            "relationships.images.new.*" => "images_new"
         ];
     }
 }

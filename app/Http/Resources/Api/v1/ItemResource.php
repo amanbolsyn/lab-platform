@@ -2,8 +2,10 @@
 
 namespace App\Http\Resources\Api\v1;
 
+use App\Http\Resources\Api\v1\FileResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use phpDocumentor\Reflection\Types\Null_;
 
 class ItemResource extends JsonResource
 {
@@ -20,8 +22,9 @@ class ItemResource extends JsonResource
             'attributes' => [
                 'name' => $this->name,
                 'stock' => $this->stock,
+                'images' => FileResource::collection($this->images),
                 $this->mergeWhen(
-                    $request->routeIs("item.show"),
+                    $request->routeIs("item.show", 'item.update', 'item.store'),
                     [
                         'description' => $this->description,
                         'project_links' => $this->project_links,
@@ -33,7 +36,7 @@ class ItemResource extends JsonResource
                 )
             ],
             'included' => [$this->when(
-                $request->routeIs("item.show", "item.index"),
+                $request->routeIs("item.show", "item.index", "item.store", "item.update"),
                 CategoryResource::collection($this->categories)
             )],
             'links' => [

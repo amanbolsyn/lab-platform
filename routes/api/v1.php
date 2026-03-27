@@ -35,12 +35,13 @@ Route::prefix('v1')->group(function () {
   Route::get('/items/{item}', [ItemController::class, 'show'])
     ->name('item.show');
   Route::middleware("auth:sanctum", "verified")->post('/items', [ItemController::class, 'store'])
+    ->name('item.store')
     ->can('create', Item::class);
   Route::middleware("auth:sanctum")->put('/items/{item}', [ItemController::class, 'update'])
+    ->name('item.update')
     ->can('update', Item::class);
   Route::middleware("auth:sanctum")->delete('/items/{item}', [ItemController::class, 'destroy'])
     ->can('delete', Item::class);
-
 
   //user routes
   Route::middleware("auth:sanctum")->get("/users", [UserController::class, 'index'])

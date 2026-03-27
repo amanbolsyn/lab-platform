@@ -37,6 +37,11 @@ class Item extends Model
         return $this->belongsToMany(Category::class);
     }
 
+    public function images(): HasMany
+    {
+        return $this->hasMany(Images::class);
+    }
+
     public function scopeFilter(Builder $builder, QueryFilter $filters): Builder
     {
         return $filters->apply($builder);
@@ -44,11 +49,11 @@ class Item extends Model
 
     public static function decreaseStock($itemId, $orderQuantity): void
     {
-        Item::where('id', $itemId) 
+        Item::where('id', $itemId)
             ->decrement('stock', $orderQuantity);
     }
 
-       public static function incrementStock($itemId, $orderQuantity): void
+    public static function incrementStock($itemId, $orderQuantity): void
     {
         Item::where('id', $itemId)
             ->increment('stock', $orderQuantity);
