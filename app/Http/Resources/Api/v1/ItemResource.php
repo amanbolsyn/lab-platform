@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Api\v1;
 
+use App\Http\Resources\Api\v1\FileResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -20,6 +21,7 @@ class ItemResource extends JsonResource
             'attributes' => [
                 'name' => $this->name,
                 'stock' => $this->stock,
+                'images' => FileResource::collection($this->images),
                 $this->mergeWhen(
                     $request->routeIs("item.show"),
                     [

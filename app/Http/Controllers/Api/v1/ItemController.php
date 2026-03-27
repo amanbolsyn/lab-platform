@@ -7,6 +7,7 @@ use App\Http\Requests\Api\v1\Item\StoreItemRequest;
 use App\Http\Requests\Api\v1\Item\UpdateItemRequest;
 use App\Http\Resources\Api\v1\ItemResource;
 use App\Models\Item;
+use App\Services\FileStorageService;
 use App\Traits\ApiResponses;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -20,7 +21,7 @@ class ItemController extends Controller
      */
     public function index(ItemFilter $filters)
     {
-        return ItemResource::collection(Item::with('categories')->filter($filters)->paginate(15));
+        return ItemResource::collection(Item::with(['categories', 'images'])->filter($filters)->paginate(15));
     }
 
     /**
@@ -34,13 +35,13 @@ class ItemController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreItemRequest $request)
+    public function store(StoreItemRequest $request, FileStorageService $fileService)
     {
 
         $model = [
             "name" => $request->input("data.attributes.name"),
             "description" => $request->input("data.attributes.description"),
-            "quantity" => $request->input("data.attributes.quantity"),
+            "stock" => (int)$request->input("data.attributes.stock"),
             'comment' => $request->input("data.attributes.comment"),
             'projects' => $request->input("data.attributes.projects"),
         ];
@@ -49,19 +50,23 @@ class ItemController extends Controller
 
         $item->categories()->attach($request->input("relationships.categories"));
 
+        if ($request->hasFile('relationships.images')) {
+            $fileService->uploadAll('images', $request->file('relationships.images'), $item);
+        }
+
         return new ItemResource($item);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateItemRequest $request, Item $item)
+    public function update(UpdateItemRequest $request, Item $item, FileStorageService $fileService)
     {
 
         $model = [
             "name" => $request->input("data.attributes.name"),
             "description" => $request->input("data.attributes.description"),
-            "quantity" => $request->input("data.attributes.quantity"),
+            "stock" => $request->input("data.attributes.stock"),
             'comment' => $request->input("data.attributes.comment"),
             'projects' => $request->input("data.attributes.projects"),
         ];
@@ -69,16 +74,21 @@ class ItemController extends Controller
         $item->update($model);
         $item->categories()->sync($request->input("relationships.categories"));
 
+        if ($request->hasFile('relationships.images')) {
+        }
+
         return new ItemResource($item);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Item $item)
+    public function destroy(Item $item, FileStorageService $fileService)
     {
+
+        $fileService->deleteAll($item->images()->get('path')->toArray());
         $item->delete();
-        
+
         return $this->success("Item deleted successfully");
     }
 }

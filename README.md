@@ -9,6 +9,12 @@ Clone the repository
 git clone https://github.com/amanbolsyn/lab-platform.git
 ```
 
+Go to the cloned directory
+```bash
+cd lab-platform/
+```
+
+
 Build docker containers
 ```bash
 make install

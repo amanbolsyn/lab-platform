@@ -41,7 +41,6 @@ Route::prefix('v1')->group(function () {
   Route::middleware("auth:sanctum")->delete('/items/{item}', [ItemController::class, 'destroy'])
     ->can('delete', Item::class);
 
-
   //user routes
   Route::middleware("auth:sanctum")->get("/users", [UserController::class, 'index'])
     ->can('viewAny', User::class)

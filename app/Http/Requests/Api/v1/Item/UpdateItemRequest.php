@@ -31,6 +31,9 @@ class UpdateItemRequest extends FormRequest
 
             "relationships.categories" => ['array'],
             'relationships.categories.*' => ['exists:categories,id'],
+
+            "relationships.images" => ['array', 'max:10'],
+            "relationships.images.*" => ['image', 'mimes:jpeg,png,jpg', 'max:2048'],
         ];
     }
 
@@ -43,7 +46,11 @@ class UpdateItemRequest extends FormRequest
             "data.attributes.comment" => 'comment',
             "data.attributes.projects" => 'projects',
 
+            'relationships.categories' => 'categories',
             'relationships.categories.*' => 'categories',
+
+            "relationships.images" => 'images',
+            "relationships.images.*" => 'images',
         ];
     }
 }
