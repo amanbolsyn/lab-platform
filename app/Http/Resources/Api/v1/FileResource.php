@@ -17,7 +17,7 @@ class FileResource extends JsonResource
     {
         return [
             'image_id' => $this->id,
-            'path' => $this->path ? Storage::disk('s3')->url($this->path) : null,
+            'path' => Storage::disk('s3')->url($this->path),
         ];
     }
 }

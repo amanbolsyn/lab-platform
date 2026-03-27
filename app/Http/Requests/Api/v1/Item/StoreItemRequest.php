@@ -24,13 +24,13 @@ class StoreItemRequest extends FormRequest
         return [
             "data.attributes.name" => ['required', 'string'],
             "data.attributes.description" => ['required', 'string'],
-            "data.attributes.stock" => ['required', 'integer'],
+            "data.attributes.stock" => ['required'],
             "data.attributes.comment" => ['string'],
             "data.attributes.projects" => ['array', 'max:5'],
 
 
             "relationships.categories" => ['array'],
-            "relationships.categories.*" => ['exists:categories,id'],
+            "relationships.categories.*" => ['exists:categories,id', 'distinct'],
 
             "relationships.images" => ['array', 'max:10'],
             "relationships.images.*" => ['image', 'mimes:jpeg,png,jpg', 'max:2048'],
