@@ -18,6 +18,8 @@ install:
 run: 
 	docker compose up -d
 	docker exec -it ${APP_NAME}-minio mc alias set myminio ${AWS_ENDPOINT} ${AWS_ACCESS_KEY_ID} ${AWS_SECRET_ACCESS_KEY}
+	docker exec -it ${APP_NAME}-minio mc anonymous set download myminio/${APP_NAME}
+
 
 
 # stop docker containers

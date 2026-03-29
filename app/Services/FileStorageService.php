@@ -21,10 +21,12 @@ class FileStorageService
 
     public function uploadAll(string $folder = 'uploads', array $files, $model)
     {
+        
         foreach ($files as $file) {
             $path = $this->upload($folder, $file);
             $model->images()->create(['path' => $path]);
         }
+
     }
 
     public function deleteAll(array $paths)
