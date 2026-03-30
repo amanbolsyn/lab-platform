@@ -51,6 +51,7 @@ class ItemController extends Controller
         $categoryIds = array_map('intval', $request->input("relationships.categories"));
         $item->categories()->attach($categoryIds);
 
+
         if ($request->hasFile('relationships.images')) {
             $fileService->uploadAll('images', $request->file('relationships.images'), $item);
         }

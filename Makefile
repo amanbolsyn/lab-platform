@@ -17,7 +17,10 @@ install:
 .PHONY: run
 run: 
 	docker compose up -d
+	sleep 5
 	docker exec -it ${APP_NAME}-minio mc alias set myminio ${AWS_ENDPOINT} ${AWS_ACCESS_KEY_ID} ${AWS_SECRET_ACCESS_KEY}
+	docker exec -it ${APP_NAME}-minio mc anonymous set download myminio/${APP_NAME}
+
 
 
 # stop docker containers
@@ -41,6 +44,11 @@ fresh:
 .PHONY: seed
 seed:
 	docker exec ${APP_NAME}-php php artisan db:seed
+
+
+.PHONY: job
+job: 
+	docker exec ${APP_NAME}-php artisan
 
 
 	

@@ -6,8 +6,7 @@ use App\Traits\ApiResponses;
 use App\Http\Requests\Api\v1\Auth\StoreSessionRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
-
-use function Laravel\Prompts\error;
+use Illuminate\Support\Facades\Hash;
 
 class SessionController extends Controller
 {
@@ -20,6 +19,12 @@ class SessionController extends Controller
     {
 
         $user = User::firstWhere('email', $request["data.attributes.email"]);
+
+        if(!Hash::check($request['data.attributes.password'], $user->password)){
+             return response()->json([
+                "message" => "Invalid credentials"
+             ], 401);
+        }
 
         return $this->success("Authenticated", [
             'token' => $user->createToken('token' . $user->email, ['*'],  now()->plus(minutes: 40))->plainTextToken,

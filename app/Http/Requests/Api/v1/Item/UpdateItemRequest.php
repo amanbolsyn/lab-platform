@@ -2,8 +2,9 @@
 
 namespace App\Http\Requests\Api\v1\Item;
 
-use App\Rules\Image\ImageNum;
+use App\Rules\Image\ItemImageRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Request;
 
 class UpdateItemRequest extends FormRequest
 {
@@ -22,6 +23,7 @@ class UpdateItemRequest extends FormRequest
      */
     public function rules(): array
     {
+ 
         return [
             "data.attributes.name" => ['required', 'string'],
             "data.attributes.description" => ['required', 'string'],
@@ -33,10 +35,11 @@ class UpdateItemRequest extends FormRequest
             "relationships.categories" => ['array'],
             'relationships.categories.*' => ['exists:categories,id'],
 
-            "relationships.images" => [new ImageNum],
+            "relationships.images" => [new ItemImageRule],
             "relationships.images.old" => ["array"],
             "relationships.images.new"  => ["array"],
-            "relationships.images.old.*" => ['exists:images,id', 'distinct'],
+    
+            "relationships.images.old.*" => ['exists:images,id,item_id,' . $this->item->id, 'distinct'],
             "relationships.images.new.*" => ['image', 'mimes:jpeg,png,jpg', 'max:2048'],
         ];
     }
