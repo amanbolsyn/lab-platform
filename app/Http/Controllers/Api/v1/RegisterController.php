@@ -29,10 +29,10 @@ class RegisterController extends Controller
 
         event(new Registered($user));
 
-        return $this->success("Registred", [
-            'token' => $user->createToken('token' . $user->email, ['*'],  now()->plus(minutes: 40))->plainTextToken,
-            'includes' =>   new UserResource($user)
-        ]);
+        // return $this->success("Registred", [
+        //     'token' => $user->createToken('token' . $user->email, ['*'],  now()->plus(minutes: 40))->plainTextToken,
+        //     'includes' =>   new UserResource($user)
+        // ]);
     }
 
     public function verifyEmail(Request $request, $id, $hash)
@@ -56,15 +56,16 @@ class RegisterController extends Controller
 
          $user = User::where('email', $request->email)->first();
     
-        // if (!$user) {
-        //     return response()->json(['message' => 'User not found.'], 404);
-        // }
+        if (!$user) {
+            return response()->json(['message' => 'User not found.'], 404);
+        }
     
         if ($user->hasVerifiedEmail()) {
             return response()->json(['message' => 'Email already verified.'], 400);
         }
     
         $user->sendEmailVerificationNotification();
+        
         return response()->json(['message' => 'Verification link resent!']);
     }
 }
