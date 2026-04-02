@@ -19,80 +19,119 @@ use App\Models\User;
 
 Route::prefix('v1')->group(function () {
 
-  // register routes
-  Route::post('/register', [RegisterController::class, 'store']);
-  Route::get('/auth/verify-email/{id}/{hash}', [RegisterController::class, 'verifyEmail'])->name('verification.verify');
-  Route::post('/auth/resend-verification', [RegisterController::class, 'sendVerificaton']); 
-  
-  // session routes
-  Route::post('/login', [SessionController::class, 'store']);
-  Route::middleware("auth:sanctum")->post('/logout', [SessionController::class, 'destroy']);
+  Route::controller(RegisterController::class)
+    ->prefix('auth')
+    ->group(function () {
+      Route::post('/register',  'store');
+
+      Route::get('/verify-email/{id}/{hash}', 'verifyEmail')
+        ->name('verification.verify');
+      Route::post('/resend-verification', 'sendVerificaton');
 
 
-  // item routes
-  Route::get('/items', [ItemController::class, 'index'])
-    ->name('item.index');
-  Route::get('/items/{item}', [ItemController::class, 'show'])
-    ->name('item.show');
-  Route::middleware("auth:sanctum", "verified")->post('/items', [ItemController::class, 'store'])
-    ->name('item.store')
-    ->can('create', Item::class);
-  Route::middleware("auth:sanctum")->put('/items/{item}', [ItemController::class, 'update'])
-    ->name('item.update')
-    ->can('update', Item::class);
-  Route::middleware("auth:sanctum")->delete('/items/{item}', [ItemController::class, 'destroy'])
-    ->can('delete', Item::class);
-
-  //user routes
-  Route::middleware("auth:sanctum")->get("/users", [UserController::class, 'index'])
-    ->can('viewAny', User::class)
-    ->name('user.index');
-  Route::middleware("auth:sanctum")->get("/users/{user}", [UserController::class, 'show'])
-    ->can('view', 'user')
-    ->name('user.show');
-  Route::middleware("auth:sanctum")->put("/users/{user}", [UserController::class, 'update'])
-    ->can('update', 'user')
-    ->name('update.user');
+      Route::post('/forgot-password',  'sendResetLink');
+      Route::post('/reset-password',  'resetPassword');
+    });
 
 
-  // carts routes
-  Route::middleware("auth:sanctum")->get('/carts', [CartController::class, 'index'])
-    ->can('viewAny', Cart::class)
-    ->name('cart.index');
-  Route::middleware("auth:sanctum")->get('/carts/{cart}', [CartController::class, 'show'])
-    ->can('view', 'cart')
-    ->name("cart.show");
-  Route::middleware("auth:sanctum")->post('/carts', [CartController::class, 'store'])
-    ->name('cart.store');
-  Route::middleware("auth:sanctum")->put('/carts/{cart}', [CartController::class, 'update'])
-    ->can('update', 'cart')
-    ->name('cart.update');
+  Route::controller(SessionController::class)
+    ->prefix('session')
+    ->group(function () {
+      Route::post('/login',  'store');
+      Route::middleware("auth:sanctum")->post('/logout',  'destroy');
+    });
 
-  // dashboard
-  Route::middleware("auth:sanctum")->get('/dashboard', [DashboardController::class, 'index'])
-    ->middleware('can:view-stats');
 
-  //role routes 
-  Route::middleware("auth:sanctum")->get('/roles', [RoleController::class, 'index'])
-    ->can('viewAny', Role::class)
-    ->name('role.index');
+  Route::controller(ItemController::class)
+    ->prefix('items')
+    ->group(function () {
+      Route::get('/',  'index')->name('item.index');
+      Route::get('/{item}',  'show')->name('item.show');
+
+      Route::middleware("auth:sanctum")->group(function () {
+        Route::middleware("verified")->post('/',  'store')->can('create', Item::class)
+          ->name('item.store');
+        Route::put('/{item}', 'update')->can('update', Item::class)
+          ->name('item.update');
+        Route::delete('/{item}', 'destroy')->can('delete', Item::class);
+      });
+    });
+
+
+  Route::controller(UserController::class)
+    ->prefix('users')
+    ->middleware('auth:sanctum')
+    ->group(function () {
+      Route::get("/", 'index')->can('viewAny', User::class)
+        ->name('user.index');
+      Route::get("/{user}",  'show')->can('view', 'user')
+        ->name('user.show');
+      Route::put("/{user}", 'update')->can('update', 'user')
+        ->name('update.user');
+    });
+
+
+
+  Route::controller(CartController::class)
+    ->prefix('carts')
+    ->middleware('auth:sanctum')
+    ->group(function () {
+      Route::get('/', 'index')->can('viewAny', Cart::class)
+        ->name('cart.index');
+      Route::get('/{cart}', 'show')->can('view', 'cart')
+        ->name("cart.show");
+      Route::post('/',  'store')
+        ->name('cart.store');
+      Route::put('/{cart}', 'update')->can('update', 'cart')
+        ->name('cart.update');
+    });
 
 
   //program routes
-  Route::get('/programs', [ProgramController::class, 'index']);
-  Route::middleware("auth:sanctum")->post('/programs', [ProgramController::class, 'store'])
-    ->can('create', Program::class);
-  Route::middleware("auth:sanctum")->put('/programs/{program}', [ProgramController::class, 'update'])
-    ->can('update', Program::class);
-  Route::middleware("auth:sanctum")->delete('/programs/{program}', [ProgramController::class, 'destroy'])
-    ->can('delete', Program::class);
+  Route::controller(ProgramController::class)
+    ->prefix('programs')
+    ->group(function () {
+      Route::get('/',  'index');
 
-  //category routes
-  Route::get('/categories', [CategoryController::class, 'index']);
-  Route::middleware("auth:sanctum")->post('/categories', [CategoryController::class, 'store'])
-    ->can('create', Category::class);
-  Route::middleware("auth:sanctum")->put('/categories/{category}', [CategoryController::class, 'update'])
-    ->can('update', Category::class);
-  Route::middleware("auth:sanctum")->delete('/categories/{category}', [CategoryController::class, 'destroy'])
-    ->can('delete', Category::class);
+      Route::middleware('auth:sanctum')->group(function () {
+        Route::post('/',  'store')
+          ->can('create', Program::class);
+        Route::put('/{program}',  'update')
+          ->can('update', Program::class);
+        Route::delete('/{program}',  'destroy')
+          ->can('delete', Program::class);
+      });
+    });
+
+
+  Route::controller(CategoryController::class)
+    ->prefix('categories')
+    ->group(function () {
+      Route::get('/', [CategoryController::class, 'index']);
+
+      Route::middleware("auth:sanctum")->group(function () {
+        Route::post('/categories', 'store')
+          ->can('create', Category::class);
+        Route::put('/{category}', 'update')
+          ->can('update', Category::class);
+        Route::delete('/{category}',  'destroy')
+          ->can('delete', Category::class);
+      });
+    });
+
+
+  Route::controller(DashboardController::class)
+    ->prefix('dashboard')
+    ->middleware(['auth:sanctum', 'can:view-stats'])
+    ->group(function () {
+      Route::get('/', 'index');
+    });
+
+
+  Route::controller(RoleController::class)
+    ->prefix('roles')
+    ->middleware('auth:sanctum')
+    ->group(function () {
+      Route::get('/', 'index')->can('viewAny', Role::class)->name('role.index');
+    });
 });

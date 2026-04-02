@@ -46,9 +46,9 @@ seed:
 	docker exec ${APP_NAME}-php php artisan db:seed
 
 
-.PHONY: job
-job: 
-	docker exec ${APP_NAME}-php artisan
+.PHONY: schedule
+schedule: 
+	docker exec ${APP_NAME}-php php artisan schedule:work
 
 
 	

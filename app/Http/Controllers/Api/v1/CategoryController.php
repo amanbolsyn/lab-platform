@@ -29,7 +29,7 @@ class CategoryController
         $model = [
             "category" => $request->input("data.attributes.category"),
         ];
-
+        
         return new CategoryResource(Category::create($model));
     }
 

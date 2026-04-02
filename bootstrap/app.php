@@ -18,6 +18,9 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware): void {
         //
     })
+    ->withProviders([
+          App\Providers\AuthServiceProvider::class,
+    ])
     ->withExceptions(function (Exceptions $exceptions): void {
         $exceptions->render(function (NotFoundHttpException $e, Request $request) {
             if ($request->is('api/v1/*')) {

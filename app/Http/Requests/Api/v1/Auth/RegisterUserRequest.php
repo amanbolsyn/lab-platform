@@ -44,7 +44,7 @@ class RegisterUserRequest extends FormRequest
     {
         return [
             "data.attributes.fullname" => "fullname",
-            "data.attributes.email" => "email, unique",
+            "data.attributes.email" => "email",
             "data.attributes.group" => "group",
             "data.attributes.password" => "password",
             "data.attributes.read_safety_precautions" => "read safety precautions",

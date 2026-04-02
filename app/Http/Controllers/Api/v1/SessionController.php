@@ -20,10 +20,16 @@ class SessionController extends Controller
 
         $user = User::firstWhere('email', $request["data.attributes.email"]);
 
-        if(!Hash::check($request['data.attributes.password'], $user->password)){
-             return response()->json([
+        if (!Hash::check($request['data.attributes.password'], $user->password)) {
+            return response()->json([
                 "message" => "Invalid credentials"
-             ], 401);
+            ], 401);
+        }
+
+        if (!$user->hasVerifiedEmail()) {
+            return response()->json([
+                "message" => "Email is not verified."
+            ], 403);
         }
 
         return $this->success("Authenticated", [
