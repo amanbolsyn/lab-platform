@@ -23,9 +23,14 @@ Route::prefix('v1')->group(function () {
     ->prefix('auth')
     ->group(function () {
       Route::post('/register',  'store');
+
       Route::get('/verify-email/{id}/{hash}', 'verifyEmail')
         ->name('verification.verify');
       Route::post('/resend-verification', 'sendVerificaton');
+
+
+      Route::post('/forgot-password',  'sendResetLink');
+      Route::post('/reset-password',  'resetPassword');
     });
 
 
@@ -68,7 +73,7 @@ Route::prefix('v1')->group(function () {
 
 
   Route::controller(CartController::class)
-    ->prifix('carts')
+    ->prefix('carts')
     ->middleware('auth:sanctum')
     ->group(function () {
       Route::get('/', 'index')->can('viewAny', Cart::class)
