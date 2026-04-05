@@ -14,35 +14,48 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        $userRole = Role::where('role', 'user')->first();
-        $adminRole = Role::where('role', 'admin')->first();
-        $rootRole = Role::where('role', 'root')->first();
 
+        $users = [
+            [
+                'fullname' => "user user",
+                'email' => 'user@astanait.edu.kz',
+                'password' => 'User123.',
+                'role' => [
+                    'user'
+                ],
+            ],
+            [
+                'fullname' => "admin admin",
+                'email' => 'admin@astanait.edu.kz',
+                'password' => 'Admin123.',
+                'role' => [
+                    'user',
+                    'admin'
+                ],
+            ],
+            [
+                'fullname' => env('APP_ROOT_USER'),
+                'email' => env('APP_ROOT_EMAIL'),
+                'password' => env('APP_ROOT_PW'),
+                'role' => [
+                    'user',
+                    'admin',
+                    'root'
+                ],
+            ]
+        ];
 
-        // Create one user
-        $user = User::factory()->create([
-            'fullname' => "user user",
-            'email' => 'user@astanait.edu.kz',
-            'password' => 'User123.',
-        ]);
-
-        // Create one admin
-        $admin = User::factory()->create([
-            'fullname' => "admin admin",
-            'email' => 'admin@astanait.edu.kz',
-            'password' => 'Admin123.',
-        ]);
-
-        $root = User::factory()->create([
-            'fullname' => "root",
-            'email' => 'root@astanait.edu.kz',
-            'password' => 'Root123.',
-        ]);
-
-
-        $user->roles()->attach($userRole->id);
-        $admin->roles()->attach($userRole->id);
-        $admin->roles()->attach($adminRole->id);
-        $root->roles()->attach($rootRole->id);
+        foreach ($users as $user) {
+            $newUser = User::factory()->create([
+                'fullname' => $user['fullname'],
+                'email' => $user['email'],
+                'password' => $user['password'],
+            ]);
+            
+            
+            foreach($user['role'] as $role){ 
+                $newUser->roles()->attach(Role::where('role', $role)->first()); 
+            }
+        }
     }
 }

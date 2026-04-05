@@ -36,10 +36,10 @@ class UpdateItemRequest extends FormRequest
             'relationships.categories.*' => ['exists:categories,id'],
 
             "relationships.images" => [new ItemImageRule],
-            "relationships.images.old" => ["array"],
-            "relationships.images.new"  => ["array"],
+            "relationships.images.old" => ["array", 'required'],
+            "relationships.images.new"  => ["array", 'required'],
     
-            "relationships.images.old.*" => ['exists:images,id,item_id,' . $this->item->id, 'distinct'],
+            "relationships.images.old.*" => ['distinct'],
             "relationships.images.new.*" => ['image', 'mimes:jpeg,png,jpg', 'max:2048'],
         ];
     }

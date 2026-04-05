@@ -14,7 +14,7 @@ class ItemImageRule implements ValidationRule
      */
     public function validate(string $attribute, mixed $images, Closure $fail): void
     {
-        $totalImage = count($images['old']) + count($images['new']);
+        $totalImage = count($images['old']) + count($images['new']) ;
         if ($totalImage > 10) {
             $fail("The number of images exceeded allowed amount.");
         }

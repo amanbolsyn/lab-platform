@@ -13,6 +13,46 @@ class CategorySeeder extends Seeder
      */
     public function run(): void
     {
-        Category::factory(7)->create(); 
+
+        $electronicCategories = [
+            "Microcontrollers",
+            "Voltage Regulators",
+            "Op-Amps",
+            "Motor Drivers",
+            "MOSFETs",
+            "Transistors",
+            "Diodes",
+            "LEDs",
+            "LCD Displays",
+            "Photodetectors",
+            "Fixed Resistors",
+            "Potentiometers",
+            "Thermistors",
+            "Electrolytic Capacitors",
+            "Ceramic Capacitors",
+            "Tantalum Capacitors",
+            "Power Inductors",
+            "Ferrite Beads",
+            "Transformers",
+            "USB-C Connectors",
+            "HDMI Sockets",
+            "PCB Headers",
+            "DC Jacks",
+            "Printed Circuit Boards (PCB)",
+            "Breadboards",
+            "Jumper Wires",
+            "Relays",
+            "Switches",
+            "Cooling Fans",
+            "IMU (Motion Sensors)",
+            "Biometric Sensors",
+            "Environmental Sensors",
+            "Ultrasonic Sensors"
+        ];
+
+        foreach ($electronicCategories as $category)
+            Category::create([
+                "category" => $category
+            ]);
     }
 }
