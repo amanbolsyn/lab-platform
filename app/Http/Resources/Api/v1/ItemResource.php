@@ -22,7 +22,7 @@ class ItemResource extends JsonResource
             'attributes' => [
                 'name' => $this->name,
                 'stock' => $this->stock,
-                'images' => FileResource::collection($this->images),
+                'images' => FileResource::collection($this->files),
                 $this->mergeWhen(
                     $request->routeIs("item.show", 'item.update', 'item.store'),
                     [

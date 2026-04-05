@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\v1\ProgramController;
 use App\Http\Controllers\Api\v1\RoleController;
 use App\Http\Controllers\Api\V1\SessionController;
 use App\Http\Controllers\Api\v1\UserController;
+use App\Http\Controllers\Api\v1\DocumentController;
 use Illuminate\Support\Facades\Route;
 use App\Models\Cart;
 use App\Models\Category;
@@ -16,6 +17,7 @@ use App\Models\Item;
 use App\Models\Program;
 use App\Models\Role;
 use App\Models\User;
+use Dom\Document;
 
 Route::prefix('v1')->group(function () {
 
@@ -27,7 +29,6 @@ Route::prefix('v1')->group(function () {
       Route::get('/verify-email/{id}/{hash}', 'verifyEmail')
         ->name('verification.verify');
       Route::post('/resend-verification', 'sendVerificaton');
-
 
       Route::post('/forgot-password',  'sendResetLink');
       Route::post('/reset-password',  'resetPassword');
@@ -87,7 +88,6 @@ Route::prefix('v1')->group(function () {
     });
 
 
-  //program routes
   Route::controller(ProgramController::class)
     ->prefix('programs')
     ->group(function () {
@@ -117,6 +117,20 @@ Route::prefix('v1')->group(function () {
         Route::delete('/{category}',  'destroy')
           ->can('delete', Category::class);
       });
+    });
+
+  Route::controller(DocumentController::class)
+    ->prefix('documents')
+    ->group(function () {
+      Route::get('/get-safety-rules', 'getSafetyRules');
+
+      Route::middleware(['auth:sanctum'])
+        ->group(function () {
+          Route::post('/store-safety-rules', 'storeSafetyRules');
+            // ->can('storeSafetyRules', Document::class);
+          Route::delete('/delete-safety-rules', 'deleteSafetyRules');
+            // ->can('deleteSafetyRules', Document::class);
+        });
     });
 
 

@@ -34,9 +34,9 @@ class UserSeeder extends Seeder
                 ],
             ],
             [
-                'fullname' => "root",
-                'email' => 'root@astanait.edu.kz',
-                'password' => 'Root123.',
+                'fullname' => env('APP_ROOT_USER'),
+                'email' => env('APP_ROOT_EMAIL'),
+                'password' => env('APP_ROOT_PW'),
                 'role' => [
                     'user',
                     'admin',

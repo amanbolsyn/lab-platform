@@ -6,6 +6,7 @@ use App\Http\Filters\Api\V1\ItemFilter;
 use App\Http\Requests\Api\v1\Item\StoreItemRequest;
 use App\Http\Requests\Api\v1\Item\UpdateItemRequest;
 use App\Http\Resources\Api\v1\ItemResource;
+use App\Models\File;
 use App\Models\Images;
 use App\Models\Item;
 use App\Services\FileStorageService;
@@ -51,7 +52,6 @@ class ItemController extends Controller
         $categoryIds = array_map('intval', $request->input("relationships.categories"));
         $item->categories()->attach($categoryIds);
 
-
         if ($request->hasFile('relationships.images')) {
             $fileService->uploadAll('images', $request->file('relationships.images'), $item);
         }
@@ -64,8 +64,6 @@ class ItemController extends Controller
      */
     public function update(UpdateItemRequest $request, Item $item, FileStorageService $fileService)
     {
-
-
         $model = [
             "name" => $request->input("data.attributes.name"),
             "description" => $request->input("data.attributes.description"),
@@ -78,14 +76,14 @@ class ItemController extends Controller
         $categoryIds = array_map('intval', $request->input("relationships.categories"));
         $item->categories()->sync($categoryIds);
 
-        $currentImages = $item->images()->pluck('id')->toArray();
+        $currentImages = $item->files()->pluck('id')->toArray();
         $keptImages = $request->input('relationships.images.old');
         $imagesToDelete = array_diff($currentImages, $keptImages);
 
         if ($imagesToDelete) {
-            $images = Images::whereIn('id', $imagesToDelete)->get()->toArray();
+            $images = $item->files()->whereIn('id', $imagesToDelete)->get()->toArray();
             $fileService->deleteAll($images);
-            Images::destroy($imagesToDelete);
+            File::destroy($imagesToDelete); 
         }
 
         if ($request->hasFile('relationships.images.new')) {
@@ -101,7 +99,7 @@ class ItemController extends Controller
     public function destroy(Item $item, FileStorageService $fileService)
     {
 
-        $fileService->deleteAll($item->images()->get('path')->toArray());
+        $fileService->deleteAll($item->files()->get('path')->toArray());
         $item->delete();
 
         return $this->success("Item deleted successfully");
