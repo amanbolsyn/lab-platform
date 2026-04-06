@@ -2,7 +2,8 @@
 
 namespace App\Http\Requests\Api\v1\Item;
 
-use App\Rules\Image\ItemImageRule;
+use App\Rules\Image\CheckOldImages;
+use App\Rules\Image\CheckImageAmount;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Request;
 
@@ -35,8 +36,8 @@ class UpdateItemRequest extends FormRequest
             "relationships.categories" => ['array'],
             'relationships.categories.*' => ['exists:categories,id'],
 
-            "relationships.images" => [new ItemImageRule],
-            "relationships.images.old" => ["array", 'required'],
+            "relationships.images" => [new CheckImageAmount],
+            "relationships.images.old" => ["array", 'required', new CheckOldImages($this->item->id)],
             "relationships.images.new"  => ["array", 'required'],
     
             "relationships.images.old.*" => ['distinct'],

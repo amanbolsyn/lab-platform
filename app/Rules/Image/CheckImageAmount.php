@@ -5,7 +5,7 @@ namespace App\Rules\Image;
 use Closure;
 use Illuminate\Contracts\Validation\ValidationRule;
 
-class ItemImageRule implements ValidationRule
+class CheckImageAmount implements ValidationRule
 {
     /**
      * Run the validation rule.
@@ -14,8 +14,17 @@ class ItemImageRule implements ValidationRule
      */
     public function validate(string $attribute, mixed $images, Closure $fail): void
     {
-        $totalImage = count($images['old']) + count($images['new']) ;
-        if ($totalImage > 10) {
+        $totalImages = 0;
+
+        if(key_exists('new', $images)){
+            $totalImages =+ count($images['new']);
+        }
+
+        if(key_exists('old', $images)){
+            $totalImages =+ count($images['old']);
+        }
+
+        if ($totalImages > 10) {
             $fail("The number of images exceeded allowed amount.");
         }
     }
