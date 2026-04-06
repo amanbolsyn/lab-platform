@@ -23,7 +23,7 @@ class ItemController extends Controller
      */
     public function index(ItemFilter $filters)
     {
-        return ItemResource::collection(Item::with(['categories', 'images'])->filter($filters)->paginate(15));
+        return ItemResource::collection(Item::with(['categories', 'files'])->filter($filters)->paginate(15));
     }
 
     /**

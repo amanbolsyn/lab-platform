@@ -28,7 +28,7 @@ Route::prefix('v1')->group(function () {
 
       Route::get('/verify-email/{id}/{hash}', 'verifyEmail')
         ->name('verification.verify');
-      Route::post('/resend-verification', 'sendVerificaton');
+      Route::post('/resend-verification', 'sendVerification');
 
       Route::post('/forgot-password',  'sendResetLink');
       Route::post('/reset-password',  'resetPassword');
