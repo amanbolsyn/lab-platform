@@ -21,9 +21,9 @@ class ItemController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(ItemFilter $filters)
+    public function index(ItemFilter $filters, Request $request)
     {
-        return ItemResource::collection(Item::with(['categories', 'files'])->filter($filters)->paginate(15));
+        return ItemResource::collection(Item::with(['categories', 'files'])->filter($filters)->paginate($request->per_page ?? 15));
     }
 
     /**

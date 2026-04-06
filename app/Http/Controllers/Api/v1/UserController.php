@@ -17,7 +17,7 @@ class UserController
     {
         $fullname = $request->input('fullname');
 
-        return UserResource::collection(User::where('fullname', 'like', "%$fullname%")->with('roles')->paginate(15));
+        return UserResource::collection(User::where('fullname', 'like', "%$fullname%")->with('roles')->paginate($request->per_page ?? 15));
     }
 
     /**

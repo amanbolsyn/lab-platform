@@ -16,9 +16,9 @@ class CartController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return CartResource::collection(Cart::with('user')->paginate(15));
+        return CartResource::collection(Cart::with('user')->paginate($request->per_page ?? 15));
     }
 
     /**

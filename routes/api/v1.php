@@ -19,7 +19,7 @@ use App\Models\Program;
 use App\Models\Role;
 use App\Models\User;
 
-Route::prefix('v1')->group(function () {
+Route::prefix('v1')->middleware(['throttle:api'])->group(function () {
 
   Route::controller(RegisterController::class)
     ->prefix('auth')
