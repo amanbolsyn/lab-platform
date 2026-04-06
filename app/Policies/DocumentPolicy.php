@@ -19,7 +19,7 @@ class DocumentPolicy
     /**
      * Determine whether the user can delete the model.
      */
-    public function deleteSafetyRules(User $user, Document $document): bool
+    public function deleteSafetyRules(User $user): bool
     {
         return  $user->isAdmin();
     }
