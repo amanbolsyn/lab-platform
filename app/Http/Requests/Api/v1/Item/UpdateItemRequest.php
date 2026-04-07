@@ -37,8 +37,8 @@ class UpdateItemRequest extends FormRequest
             'relationships.categories.*' => ['exists:categories,id'],
 
             "relationships.images" => [new CheckImageAmount],
-            "relationships.images.old" => ["array", 'required', new CheckOldImages($this->item->id)],
-            "relationships.images.new"  => ["array", 'required'],
+            "relationships.images.old" => ["array" , new CheckOldImages($this->item->id)],
+            "relationships.images.new"  => ["array"],
     
             "relationships.images.old.*" => ['distinct'],
             "relationships.images.new.*" => ['image', 'mimes:jpeg,png,jpg', 'max:2048'],

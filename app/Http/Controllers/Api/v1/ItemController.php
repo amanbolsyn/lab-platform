@@ -21,9 +21,9 @@ class ItemController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(ItemFilter $filters)
+    public function index(ItemFilter $filters, Request $request)
     {
-        return ItemResource::collection(Item::with(['categories', 'files'])->filter($filters)->paginate(15));
+        return ItemResource::collection(Item::with(['categories', 'files'])->filter($filters)->paginate($request->per_page ?? 15));
     }
 
     /**
@@ -49,14 +49,15 @@ class ItemController extends Controller
         ];
 
         $item = Item::create($model);
-        $categoryIds = array_map('intval', $request->input("relationships.categories"));
+        $categoryIds = collect($request->input("relationships.categories"))->toArray();
+        $categoryIds = array_map('intval', $categoryIds);
         $item->categories()->attach($categoryIds);
 
         if ($request->hasFile('relationships.images')) {
             $fileService->uploadAll('images', $request->file('relationships.images'), $item);
         }
 
-        return new ItemResource($item);
+        return new ItemResource($item->load('files'));
     }
 
     /**
@@ -77,20 +78,20 @@ class ItemController extends Controller
         $item->categories()->sync($categoryIds);
 
         $currentImages = $item->files()->pluck('id')->toArray();
-        $keptImages = $request->input('relationships.images.old');
+        $keptImages = collect($request->input('relationships.images.old'))->toArray();
         $imagesToDelete = array_diff($currentImages, $keptImages);
 
         if ($imagesToDelete) {
             $images = $item->files()->whereIn('id', $imagesToDelete)->get()->toArray();
             $fileService->deleteAll($images);
-            File::destroy($imagesToDelete); 
+            File::destroy($imagesToDelete);
         }
 
         if ($request->hasFile('relationships.images.new')) {
             $fileService->uploadAll('images',  $request->file('relationships.images.new'), $item);
         }
 
-        return new ItemResource($item);
+        return new ItemResource($item->load('files'));
     }
 
     /**

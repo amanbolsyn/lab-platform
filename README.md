@@ -65,7 +65,6 @@ make fresh
 | GET | `/carts/:id`| get a cart | user, admin, root
 | POST | `/carts`| create new cart | user
 | PUT | `/carts/:id`| edit a cart | admin, root
-| DELETE | `/carts/:id`| delete a cart| admin, root
 
 ### Item endpoints 
 
@@ -103,19 +102,30 @@ make fresh
 |:------:|------|------|:------:|
 | GET | `/users`| get all users | admin, root
 | GET | `/users/:id`| get a user| user, admin, root
-| PUT | `/users/:id`| change user information | admin
-| PUT | `/users/:id`| add admin role | root
+| PUT | `/users/:id`| change user information | root, admin
 
 ### Session endpoints 
 | Method | Endpoint | Description | Roles |
 |:------:|------|------|:------:|
-| POST | `/login`| create new session | everyone
-| POST | `/login`| destory the session| user
+| POST | `session/login`| create new session | everyone
+| POST | `session/logout`| destory the session| user
 
 ### Regisration endpoints 
 | Method | Endpoint | Description | Roles |
 |:------:|------|------|:------:|
-| POST | `/register`| create new user | everyone
+| POST | `auth/register`| create new user | everyone
+| POST | `auth/forgot-password`| send forgot password link to email | user
+| POST | `auth/reset-password`| create new password | everyone
+| POST | `auth/verify-email`| send verification email | everyone
+| POST | `auth/resend-verification`| resend verification email | everyone
+
+### Safery Rules endpoint 
+| Method | Endpoint | Description | Roles |
+|:------:|------|------|:------:|
+| GET | `document/get-safety-rules`| get safety rules document| user
+| POST | `document/add-safety-rules`| create new safety rules document | admin, root
+| DELETE | `document/delete-safety-rules`| delete safety rules document | admin, root
+
 
 ### Role endpoint
 | Method | Endpoint | Description | Roles |
@@ -128,7 +138,6 @@ make fresh
 | GET | `/dashboard`| get cart analytics | admin, root
 
 ## Possible improvements 
-
 
 ## Bugs 
 

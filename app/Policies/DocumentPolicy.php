@@ -2,9 +2,7 @@
 
 namespace App\Policies;
 
-use App\Models\Document;
 use App\Models\User;
-use Illuminate\Auth\Access\Response;
 
 class DocumentPolicy
 {
@@ -19,7 +17,7 @@ class DocumentPolicy
     /**
      * Determine whether the user can delete the model.
      */
-    public function deleteSafetyRules(User $user, Document $document): bool
+    public function deleteSafetyRules(User $user): bool
     {
         return  $user->isAdmin();
     }

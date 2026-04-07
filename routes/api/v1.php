@@ -13,13 +13,13 @@ use App\Http\Controllers\Api\v1\DocumentController;
 use Illuminate\Support\Facades\Route;
 use App\Models\Cart;
 use App\Models\Category;
+use App\Models\Document;
 use App\Models\Item;
 use App\Models\Program;
 use App\Models\Role;
 use App\Models\User;
-use Dom\Document;
 
-Route::prefix('v1')->group(function () {
+Route::prefix('v1')->middleware(['throttle:api'])->group(function () {
 
   Route::controller(RegisterController::class)
     ->prefix('auth')
@@ -50,7 +50,7 @@ Route::prefix('v1')->group(function () {
       Route::get('/{item}',  'show')->name('item.show');
 
       Route::middleware("auth:sanctum")->group(function () {
-        Route::middleware("verified")->post('/',  'store')->can('create', Item::class)
+        Route::post('/',  'store')->can('create', Item::class)
           ->name('item.store');
         Route::put('/{item}', 'update')->can('update', Item::class)
           ->name('item.update');
@@ -69,6 +69,9 @@ Route::prefix('v1')->group(function () {
         ->name('user.show');
       Route::put("/{user}", 'update')->can('update', 'user')
         ->name('update.user');
+      Route::get('/{user}/carts', 'getUserCarts')
+        ->can('view', 'user')
+        ->name('user.carts');
     });
 
 
@@ -126,10 +129,10 @@ Route::prefix('v1')->group(function () {
 
       Route::middleware(['auth:sanctum'])
         ->group(function () {
-          Route::post('/store-safety-rules', 'storeSafetyRules');
-            // ->can('storeSafetyRules', Document::class);
-          Route::delete('/delete-safety-rules', 'deleteSafetyRules');
-            // ->can('deleteSafetyRules', Document::class);
+          Route::post('/store-safety-rules', 'storeSafetyRules')
+            ->can('storeSafetyRules', Document::class);
+          Route::delete('/delete-safety-rules', 'deleteSafetyRules')
+            ->can('deleteSafetyRules', Document::class);
         });
     });
 

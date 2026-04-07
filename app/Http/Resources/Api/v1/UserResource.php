@@ -35,10 +35,6 @@ class UserResource extends JsonResource
                 $this->when(
                     $request->routeIs("user.show", "user.index", "update.user"),
                     RoleResource::collection($this->roles)
-                ),
-                $this->when(
-                    $request->routeIs("user.show", "update.user"),
-                    CartResource::collection($this->whenLoaded('carts')),
                 )
             ],
 
