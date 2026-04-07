@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Api\v1;
 
 use App\Http\Requests\Api\v1\User\UpdateUserRequest;
+use App\Http\Resources\Api\v1\CartResource;
 use App\Http\Resources\Api\v1\UserResource;
+use App\Models\Cart;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -17,7 +19,11 @@ class UserController
     {
         $fullname = $request->input('fullname');
 
-        return UserResource::collection(User::where('fullname', 'like', "%$fullname%")->with('roles')->paginate($request->per_page ?? 15));
+        $users = User::where('fullname', 'like', "%$fullname%")
+            ->with('roles')
+            ->paginate($request->per_page ?? 15);
+
+        return UserResource::collection($users);
     }
 
     /**
@@ -25,7 +31,7 @@ class UserController
      */
     public function show(User $user)
     {
-        return new UserResource($user->load('carts'));
+        return new UserResource($user);
     }
 
     /**
@@ -39,10 +45,19 @@ class UserController
         $user->update($userAttributes);
 
         if (Auth::user()->isRoot()) {
-            $user->roles()->sync($request->input("relationships.roles")); 
+            $user->roles()->sync($request->input("relationships.roles"));
         }
 
-        return new UserResource($user->load('carts')); 
-        
+        return new UserResource($user->load('carts'));
+    }
+
+    public function getUserCarts(Request $request, User $user)
+    {
+
+        $carts = Cart::where('user_id', $user->id)
+            ->with('orders.item')
+            ->paginate($request->per_page ?? 10);
+
+        return CartResource::collection($carts);
     }
 }

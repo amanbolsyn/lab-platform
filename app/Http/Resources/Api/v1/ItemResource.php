@@ -37,7 +37,7 @@ class ItemResource extends JsonResource
             ],
             'included' => [$this->when(
                 $request->routeIs("item.show", "item.index", "item.store", "item.update"),
-                CategoryResource::collection($this->categories)
+                CategoryResource::collection($this->whenLoaded('categories'))
             )],
             'links' => [
                 'self' => route("item.show", ['item' => $this->id])

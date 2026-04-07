@@ -35,7 +35,7 @@ class CartResource extends JsonResource
                     new UserResource($this->user)
                 ),
                 $this->when(
-                    $request->routeIs('cart.show', "cart.store", "cart.update"),
+                    $request->routeIs('cart.show', "cart.store", "cart.update", "user.carts"),
                     OrderResource::collection($this->whenLoaded('orders')),
                 )
             ],

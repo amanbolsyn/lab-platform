@@ -86,15 +86,15 @@ class CartController extends Controller
 
 
             //update items
-            if($cart['status'] === "rejected" || $cart['status'] === 'returned'){
+            if ($cart['status'] === "rejected" || $cart['status'] === 'returned') {
                 foreach ($ordersAttributes as $order) {
-                      Item::incrementStock($order['item_id'], $order['quantity']); 
+                    Item::incrementStock($order['item_id'], $order['quantity']);
                 }
             }
-             
+
             return Cart::with('orders.item')->findOrFail($cart->id);
         });
 
-        return new CartResource($cart); 
+        return new CartResource($cart);
     }
 }
