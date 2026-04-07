@@ -69,7 +69,9 @@ Route::prefix('v1')->middleware(['throttle:api'])->group(function () {
         ->name('user.show');
       Route::put("/{user}", 'update')->can('update', 'user')
         ->name('update.user');
-      Route::get('/{user}/carts', 'getUserCarts')->name('user.carts'); 
+      Route::get('/{user}/carts', 'getUserCarts')
+        ->can('view', 'user')
+        ->name('user.carts');
     });
 
 
