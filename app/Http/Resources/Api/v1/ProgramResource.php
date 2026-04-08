@@ -18,7 +18,7 @@ class ProgramResource extends JsonResource
             'type' => "program",
             'id' => $this->id,
             'attributes' => [
-                'name' => $this->name,
+                'name' => $this->program,
                 'code' => $this->code,
             ]
         ];

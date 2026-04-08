@@ -8,6 +8,7 @@ install:
 	docker compose up -d
 	docker exec ${APP_NAME}-php php artisan migrate
 # 	minio configuraiton 
+	sleep 3
 	docker exec -it ${APP_NAME}-minio mc alias set myminio ${AWS_ENDPOINT} ${AWS_ACCESS_KEY_ID} ${AWS_SECRET_ACCESS_KEY}
 	docker exec -t ${APP_NAME}-minio mc mb myminio/${APP_NAME}
 	docker exec -it ${APP_NAME}-minio mc anonymous set download myminio/${APP_NAME}
@@ -17,7 +18,7 @@ install:
 .PHONY: run
 run: 
 	docker compose up -d
-	sleep 5
+	sleep 3
 	docker exec -it ${APP_NAME}-minio mc alias set myminio ${AWS_ENDPOINT} ${AWS_ACCESS_KEY_ID} ${AWS_SECRET_ACCESS_KEY}
 	docker exec -it ${APP_NAME}-minio mc anonymous set download myminio/${APP_NAME}
 
@@ -48,7 +49,7 @@ seed:
 
 .PHONY: schedule
 schedule: 
-	docker exec ${APP_NAME}-php php artisan schedule:work
+	docker exec ${APP_NAME}-php php 	artisan schedule:work
 
 
 	
