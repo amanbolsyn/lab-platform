@@ -14,7 +14,6 @@ Go to the cloned directory
 cd lab-platform/
 ```
 
-
 Build docker containers
 ```bash
 make install
@@ -44,12 +43,14 @@ make seed
 ```
 make fresh
 ```
-
+## Database Design 
+![ERD Diagram](docs/lab-platform-erd-diagram.jpg)
 
 ## Roles 
 
 | Roles | Description | 
 |:------:|------|
+| Everyone | Unauthenticated users| 
 | User | Can order items | 
 | Admin | Can access all enpoints except adding new admins | 
 | Root | Can access all endpoints | 
@@ -102,6 +103,7 @@ make fresh
 |:------:|------|------|:------:|
 | GET | `/users`| get all users | admin, root
 | GET | `/users/:id`| get a user| user, admin, root
+| GET | `/users/:id/carts`| get user's carts | user, root, admin
 | PUT | `/users/:id`| change user information | root, admin
 
 ### Session endpoints 

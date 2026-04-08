@@ -4,7 +4,6 @@ namespace App\Console\Commands;
 
 use App\Mail\OrderNotifications;
 use App\Models\Cart;
-use App\Models\Order;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Mail;
@@ -31,11 +30,10 @@ class SendOrderNotifyEmails extends Command
     public function handle()
     {
         
-        $carts = Cart::whereDate('due_date', '<=', Carbon::now()->addDays(3))->get();
-
+        $carts = Cart::whereBetween('due_date',[Carbon::now()->addDays(1), Carbon::now()->addDays(3)])->limit(2)->get();
 
         foreach ($carts as $cart) {
-            Mail::to($cart->user)->queue(new OrderNotifications($cart->user));
+            Mail::to($cart->user)->queue(new OrderNotifications($cart));
         }
 
         $this->info('Daily emails processed successfully.');
