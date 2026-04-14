@@ -30,6 +30,11 @@ class UserPolicy
      */
     public function update(User $user): bool
     {
-        return $user->isAdmin(); 
+        return $user->isAdmin();
+    }
+
+    public function destroy(User $user): bool
+    {
+        return $user->isAdmin();
     }
 }

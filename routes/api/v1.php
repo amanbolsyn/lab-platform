@@ -72,6 +72,7 @@ Route::prefix('v1')->middleware(['throttle:api'])->group(function () {
       Route::get('/{user}/carts', 'getUserCarts')
         ->can('view', 'user')
         ->name('user.carts');
+      Route::delete('/{user}', 'destroy')->can('delete', 'user'); 
     });
 
 

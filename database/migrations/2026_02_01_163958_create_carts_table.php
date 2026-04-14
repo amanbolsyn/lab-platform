@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('carts', function (Blueprint $table) {
             $table->id();
-              $table->foreignIdFor(User::class, 'user_id'); 
+              $table->foreignIdFor(User::class, 'user_id')->constrained()->cascadeOnDelete();
               $table->string('purpose');
               $table->enum('status', Cart::STATUS_LEVELS)->default('pending');
               $table->date('due_date'); 

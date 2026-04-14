@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Api\v1\Program;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateProgramRequest extends FormRequest
 {
@@ -21,9 +22,10 @@ class UpdateProgramRequest extends FormRequest
      */
     public function rules(): array
     {
+
         return [
-            "data.attributes.program" => ['required', 'string', "max:255", "unique:programs,program"],
-            "data.attributes.code" => ['required', 'string', "max:63", "unique:programs,code"],
+            "data.attributes.program" => ['required', 'string', "max:255", Rule::unique('programs', 'program')->ignore($this->program->id)],
+            "data.attributes.code" => ['required', 'string', "max:63", Rule::unique('programs', 'code')->ignore($this->program->id)],
         ];
     }
 

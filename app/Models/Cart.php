@@ -12,7 +12,7 @@ class Cart extends Model
 {
     use HasFactory;
 
-    public const STATUS_LEVELS = ['pending', 'approved', 'rejected', 'returned'];
+    public const STATUS_LEVELS = ['pending', 'approved', 'claimed', 'rejected', 'returned'];
 
     public $fillable = [
         'due_date',
