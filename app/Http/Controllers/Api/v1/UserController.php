@@ -7,11 +7,13 @@ use App\Http\Resources\Api\v1\CartResource;
 use App\Http\Resources\Api\v1\UserResource;
 use App\Models\Cart;
 use App\Models\User;
+use App\Traits\ApiResponses;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class UserController
 {
+    use ApiResponses;
     /**
      * Display a listing of the resource.
      */
@@ -49,6 +51,13 @@ class UserController
         }
 
         return new UserResource($user->load('carts'));
+    }
+
+    public function destroy(User $user)
+    {
+        $user->delete();
+
+        return $this->success("User deleted successfully");
     }
 
     public function getUserCarts(Request $request, User $user)

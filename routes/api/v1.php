@@ -72,6 +72,7 @@ Route::prefix('v1')->middleware(['throttle:api'])->group(function () {
       Route::get('/{user}/carts', 'getUserCarts')
         ->can('view', 'user')
         ->name('user.carts');
+      Route::delete('/{user}', 'destroy')->can('delete', 'user');
     });
 
 
@@ -141,7 +142,8 @@ Route::prefix('v1')->middleware(['throttle:api'])->group(function () {
     ->prefix('dashboard')
     ->middleware(['auth:sanctum', 'can:view-stats'])
     ->group(function () {
-      Route::get('/', 'index');
+      Route::get('/carts-summary', 'getCartsSummary');
+      Route::get('/users-summary',  'getUsersSummary');
     });
 
 

@@ -22,7 +22,7 @@ class SendOrderNotifyEmails extends Command
      *
      * @var string
      */
-    protected $description = 'Send emails to users with upcomint return dates for thier carts/orders';
+    protected $description = 'Send emails to users with upcoming return dates for thier carts/orders';
 
     /**
      * Execute the console command.
