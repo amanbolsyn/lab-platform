@@ -24,7 +24,7 @@ class CartFactory extends Factory
             'status' => fake()->randomElement(Cart::STATUS_LEVELS),
             'due_date' => fake()->dateTimeBetween('now', '+5 days'),
             'comment' => fake()->sentence(10),
-            'created_at' => fake()->dateTimeBetween('2022-03-12','2026-03-12')
+            'created_at' => fake()->dateTimeBetween('2025-03-12','now')
         ];
     }
 }
