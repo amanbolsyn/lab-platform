@@ -11,13 +11,12 @@ class DashboardController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request): JsonResponse
+    public function getCartsSummary(Request $request): JsonResponse
     {
-
         $dates = $request->only(['start_date', 'end_date']);
 
         if (!isset($dates['end_date']) || !strtotime($dates['end_date'])) {
-            $dates['end_date'] = now()->toDateString();
+            $dates['end_date'] = now()->addDay()->toDateString();
         }
 
         if (!isset($dates['start_date']) || !strtotime($dates['start_date'])) {
@@ -29,6 +28,27 @@ class DashboardController extends Controller
                 "total_carts" => Cart::totalCarts($dates['start_date'], $dates['end_date']),
                 "carts_by_month" => Cart::byMonth($dates['start_date'], $dates['end_date']),
                 "carts_by_status" => Cart::byStatus($dates['start_date'], $dates['end_date']),
+            ]
+        ]);
+    }
+
+    public function getUsersSummary(Request $request): JsonResponse
+    {
+
+        $dates = $request->only(['start_date', 'end_date']);
+
+        if (!isset($dates['end_date']) || !strtotime($dates['end_date'])) {
+            $dates['end_date'] = now()->addDay()->toDateString();
+        }
+
+        if (!isset($dates['start_date']) || !strtotime($dates['start_date'])) {
+            $dates['start_date'] = now()->subYear()->toDateString();
+        }
+
+
+        return response()->json([
+            "data" => [
+                "carts_by_program" => Cart::byProgram($dates['start_date'], $dates['end_date']),
             ]
         ]);
     }
