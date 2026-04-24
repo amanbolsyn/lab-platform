@@ -45,7 +45,7 @@ class ItemController extends Controller
             "description" => $request->input("data.attributes.description"),
             "stock" => (int)$request->input("data.attributes.stock"),
             'comment' => $request->input("data.attributes.comment"),
-            'projects' => $request->input("data.attributes.projects"),
+            'project_links' => $request->input("data.attributes.project_links"),
         ];
 
         $item = Item::create($model);
@@ -70,7 +70,7 @@ class ItemController extends Controller
             "description" => $request->input("data.attributes.description"),
             "stock" => $request->input("data.attributes.stock"),
             'comment' => $request->input("data.attributes.comment"),
-            'projects' => $request->input("data.attributes.projects"),
+            'project_links' => $request->input("data.attributes.project_links"),
         ];
 
         $item->update($model);

@@ -30,7 +30,7 @@ class UpdateItemRequest extends FormRequest
             "data.attributes.description" => ['required', 'string'],
             "data.attributes.stock" => ['required', 'integer'],
             "data.attributes.comment" => ['string'],
-            "data.attributes.projects" => ['array', 'max:5'],
+            "data.attributes.project_links" => ['array', 'max:5'],
             "data.attributes.categories" => 'array',
 
             "relationships.categories" => ['array'],
@@ -52,7 +52,7 @@ class UpdateItemRequest extends FormRequest
             "data.attributes.description" => 'description',
             "data.attributes.stock" => 'quantity',
             "data.attributes.comment" => 'comment',
-            "data.attributes.projects" => 'projects',
+            "data.attributes.project_links" => 'project links',
 
             'relationships.categories' => 'categories',
             'relationships.categories.*' => 'categories',
