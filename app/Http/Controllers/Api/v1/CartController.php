@@ -5,10 +5,13 @@ namespace App\Http\Controllers\Api\v1;
 use App\Http\Requests\Api\v1\Cart\StoreCartRequest;
 use App\Http\Requests\Api\v1\Cart\UpdateCartRequest;
 use App\Http\Resources\Api\v1\CartResource;
+use App\Mail\OrderCreated;
 use App\Models\Cart;
 use App\Models\Item;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class CartController extends Controller
 {
@@ -46,6 +49,14 @@ class CartController extends Controller
                 fn($order) => Item::decreaseStock($order['item_id'], $order['quantity'])
             );
 
+            Mail::to([$request->user()])->send(new OrderCreated($cart));
+
+            $admins = User::whereHas('roles', function ($query) {
+                $query->where('role', 'admin');
+            })->get();
+            foreach ($admins as $admin) {
+                Mail::to($admin)->send(new OrderCreated($cart));
+            }
 
             return Cart::with('orders.item')->findOrFail($cart->id);
         });
