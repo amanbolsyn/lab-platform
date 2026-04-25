@@ -14,49 +14,14 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory(10)->create();
 
-        $users = [
-            [
-                'fullname' => "user user",
-                'email' => 'user@astanait.edu.kz',
-                'password' => 'User123.',
-                'role' => [
-                    'user'
-                ],
-            ],
-            [
-                'fullname' => "admin admin",
-                'email' => 'admin@astanait.edu.kz',
-                'password' => 'Admin123.',
-                'role' => [
-                    'user',
-                    'admin'
-                ],
-            ],
-            [
-                'fullname' => env('APP_ROOT_USER'),
-                'email' => env('APP_ROOT_EMAIL'),
-                'password' => env('APP_ROOT_PW'),
-                'role' => [
-                    'user',
-                    'admin',
-                    'root'
-                ],
-            ]
-        ];
+        $rootUser = User::factory()->create([
+            'fullname' => env('APP_ROOT_USER'),
+            'email' => env('APP_ROOT_EMAIL'),
+            'password' => env('APP_ROOT_PW'),
+        ]);
 
-        foreach ($users as $user) {
-            $newUser = User::factory()->create([
-                'fullname' => $user['fullname'],
-                'email' => $user['email'],
-                'password' => $user['password'],
-            ]);
-            
-            
-            foreach($user['role'] as $role){ 
-                $newUser->roles()->attach(Role::where('role', $role)->first()); 
-            }
-        }
+        $roleIds = Role::whereIn('role', ['user', 'admin', 'root'])->pluck('id');
+        $rootUser->roles()->attach($roleIds);
     }
 }

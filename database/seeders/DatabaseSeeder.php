@@ -21,9 +21,9 @@ class DatabaseSeeder extends Seeder
                 ProgramSeeder::class,
                 UserSeeder::class,
                 CategorySeeder::class,
-                ItemSeeder::class,
-                CartSeeder::class,
-                OrderSeeder::class,
+                // ItemSeeder::class,
+                // CartSeeder::class,
+                // OrderSeeder::class,
             ]);
         });
     }

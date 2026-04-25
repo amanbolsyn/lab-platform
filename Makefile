@@ -6,6 +6,8 @@ export
 install: 
 	cp .env.example .env
 	docker compose up -d
+	docker exec ${APP_NAME}-php composer install
+	docker exec ${APP_NAME}-php php artisan key:generate
 	docker exec ${APP_NAME}-php php artisan migrate
 # 	minio configuraiton 
 	sleep 3
@@ -49,7 +51,7 @@ seed:
 
 .PHONY: schedule
 schedule: 
-	docker exec ${APP_NAME}-php php 	artisan schedule:work
+	docker exec ${APP_NAME}-php php artisan schedule:work
 
 
 	
