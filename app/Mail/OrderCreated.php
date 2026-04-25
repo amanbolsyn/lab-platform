@@ -3,23 +3,27 @@
 namespace App\Mail;
 
 use App\Models\Cart;
-use App\Models\User;
+use App\Models\Order;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Facades\Mail;
 
-class OrderNotifications extends Mailable
+class OrderCreated extends Mailable
 {
     use Queueable, SerializesModels;
 
+
+    public $cart;
     /**
      * Create a new message instance.
      */
-    public function __construct(public Cart $cart) {}
+    public function __construct(Cart $cart)
+    {
+        $this->cart = $cart;
+    }
 
     /**
      * Get the message envelope.
@@ -27,7 +31,7 @@ class OrderNotifications extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Upcoming Order Due Date',
+            subject: 'Order Created' . $this->cart->id,
         );
     }
 
@@ -37,7 +41,7 @@ class OrderNotifications extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'emails.order-notify'
+            view: 'emails.order-created',
         );
     }
 

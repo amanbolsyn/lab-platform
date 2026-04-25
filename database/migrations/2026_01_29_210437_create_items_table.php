@@ -18,10 +18,9 @@ return new class extends Migration
             $table->string('description');
             $table->integer('stock')->default(0);
             $table->string('comment')->nullable();
-            $table->json('projects')->nullable();
+            $table->json('project_links')->nullable();
             $table->timestamps();
         });
-        
     }
 
     /**

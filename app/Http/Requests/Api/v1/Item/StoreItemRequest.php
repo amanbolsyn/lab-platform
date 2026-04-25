@@ -26,7 +26,7 @@ class StoreItemRequest extends FormRequest
             "data.attributes.description" => ['required', 'string'],
             "data.attributes.stock" => ['required'],
             "data.attributes.comment" => ['string'],
-            "data.attributes.projects" => ['array', 'max:5'],
+            "data.attributes.project_links" => ['array', 'max:5'],
 
 
             "relationships.categories" => ['array'],
@@ -45,7 +45,7 @@ class StoreItemRequest extends FormRequest
             "data.attributes.description" => 'description',
             "data.attributes.stock" => 'stock',
             "data.attributes.comment" => 'comment',
-            "data.attributes.projects" => 'projects',
+            "data.attributes.project_links" => 'project links',
 
             'relationships.categories' => 'categories',
             'relationships.categories.*' => 'categories',

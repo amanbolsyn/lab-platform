@@ -20,11 +20,11 @@ class Item extends Model
         'description',
         'stock',
         'comment',
-        'projects'
+        'project_links'
     ];
 
     protected $casts = [
-        'projects' => 'array',
+        'project_links' => 'array',
     ];
 
 
