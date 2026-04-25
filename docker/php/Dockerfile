@@ -1,5 +1,10 @@
 FROM php:8.4-fpm
 
+ARG WWWGROUP=1000
+ARG WWWUSER=1000
+
+ENV TZ=UTC
+
 # Install dependencies
 RUN apt-get update && apt-get install -y \
     git \
@@ -11,6 +16,7 @@ RUN apt-get update && apt-get install -y \
     libxml2-dev  \
     libzip-dev
 
+    
 # Install PHP extensions
 RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd zip
 
@@ -23,9 +29,6 @@ WORKDIR /var/www
 
 # Copy project
 COPY . .
-
-# Install dependencies
-RUN composer install
 
 # Permissions
 RUN chown -R www-data:www-data /var/www
