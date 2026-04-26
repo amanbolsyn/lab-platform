@@ -7,13 +7,12 @@ install:
 	cp .env.example .env
 	docker compose up -d
 	docker exec ${APP_NAME}_php composer install
-	docker exec ${APP_NAME}_php php artisan key:generate
 	docker exec ${APP_NAME}_php php artisan migrate
 # 	minio configuraiton 
 	sleep 3
 	docker exec -it ${APP_NAME}_minio mc alias set myminio ${AWS_ENDPOINT} ${AWS_ACCESS_KEY_ID} ${AWS_SECRET_ACCESS_KEY}
-	docker exec -t ${APP_NAME}_minio mc mb myminio/${APP_NAME}
-	docker exec -it ${APP_NAME}_minio mc anonymous set download myminio/${APP_NAME}
+	docker exec -t ${APP_NAME}_minio mc mb myminio/${AWS_BUCKET}
+	docker exec -it ${APP_NAME}_minio mc anonymous set download myminio/${AWS_BUCKET}
 
 
 # start docker containers
@@ -22,7 +21,7 @@ run:
 	docker compose up -d
 	sleep 3
 	docker exec -it ${APP_NAME}_minio mc alias set myminio ${AWS_ENDPOINT} ${AWS_ACCESS_KEY_ID} ${AWS_SECRET_ACCESS_KEY}
-	docker exec -it ${APP_NAME}_minio mc anonymous set download myminio/${APP_NAME}
+	docker exec -it ${APP_NAME}_minio mc anonymous set download myminio/${AWS_BUCKET}
 
 
 
@@ -41,7 +40,7 @@ migrate:
 .PHONY: fresh
 fresh:
 	docker exec ${APP_NAME}_php php artisan migrate:fresh
-	docker exec ${APP_NAME}_minio mc rm --recursive --force myminio/${APP_NAME}
+	docker exec ${APP_NAME}_minio mc rm --recursive --force myminio/${AWS_BUCKET}
 
 
 # seed the database
