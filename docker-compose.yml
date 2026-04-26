@@ -1,29 +1,33 @@
 services:
-  lab-platform:  
+  lab_platform:  
     build:
       context: .
       dockerfile: docker/php/Dockerfile
-    container_name: ${APP_NAME}-php
+    container_name: ${APP_NAME}_php
     volumes:
       - .:/var/www
+    networks:
+      - lab-network
     depends_on:
       - db
       - minio
 
   nginx:
     image: nginx:latest
-    container_name: ${APP_NAME}-nginx
+    container_name: ${APP_NAME}_nginx
     ports:
       - "8000:80"
     volumes:
       - .:/var/www
       - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+    networks:
+      - lab-network
     depends_on:
-      - lab-platform
+      - lab_platform
 
   db:
     image: mysql:8.0
-    container_name: ${APP_NAME}-db
+    container_name: ${APP_NAME}_db
     restart: always
     environment:
       MYSQL_DATABASE: ${DB_DATABASE}
@@ -34,10 +38,12 @@ services:
       - "3307:3306"
     volumes:
       - dbdata:/var/lib/mysql
+    networks:
+      - lab-network
 
   minio:
     image: minio/minio:latest
-    container_name: ${APP_NAME}-minio
+    container_name: ${APP_NAME}_minio
     restart: always
     command: ["server", "/data", "--console-address=:9001"]
     environment:
@@ -46,10 +52,15 @@ services:
       MINIO_SERVER_URL : ${AWS_ENDPOINT}
     volumes:
       - object-storage:/data
+    networks:
+      - lab-network
     ports: 
       - "9000:9000"  # API
       - "9001:9001"  # Console UI
-      
+
+networks:
+  lab-network:
+    driver: bridge  
 
 volumes:
   dbdata:
