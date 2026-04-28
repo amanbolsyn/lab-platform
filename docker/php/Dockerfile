@@ -1,8 +1,5 @@
 FROM php:8.4-fpm
 
-ARG WWWGROUP=1000
-ARG WWWUSER=1000
-
 ENV TZ=UTC
 
 # Install dependencies
