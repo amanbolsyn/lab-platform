@@ -7,7 +7,7 @@ use App\Http\Controllers\Api\v1\CartController;
 use App\Http\Controllers\Api\v1\CategoryController;
 use App\Http\Controllers\Api\v1\ProgramController;
 use App\Http\Controllers\Api\v1\RoleController;
-use App\Http\Controllers\Api\V1\SessionController;
+use App\Http\Controllers\Api\v1\SessionController;
 use App\Http\Controllers\Api\v1\UserController;
 use App\Http\Controllers\Api\v1\DocumentController;
 use Illuminate\Support\Facades\Route;
