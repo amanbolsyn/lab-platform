@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\v1;
 
 use App\Traits\ApiResponses;
 use App\Http\Requests\Api\v1\Auth\StoreSessionRequest;
+use App\Http\Resources\Api\v1\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -34,6 +35,7 @@ class SessionController extends Controller
 
         return $this->success("Authenticated", [
             'token' => $user->createToken('token' . $user->email, ['*'],  now()->plus(minutes: 40))->plainTextToken,
+            'user' => new UserResource($user), 
         ]);
     }
 

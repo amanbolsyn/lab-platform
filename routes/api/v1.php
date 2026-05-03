@@ -38,7 +38,7 @@ Route::prefix('v1')->middleware(['throttle:api'])->group(function () {
   Route::controller(SessionController::class)
     ->prefix('session')
     ->group(function () {
-      Route::post('/login',  'store');
+      Route::post('/login',  'store')->name('session');
       Route::middleware("auth:sanctum")->post('/logout',  'destroy');
     });
 
