@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api\v1;
 
-use App\Http\Filters\Api\V1\ItemFilter;
+use App\Http\Filters\Api\v1\ItemFilter;
 use App\Http\Requests\Api\v1\Item\StoreItemRequest;
 use App\Http\Requests\Api\v1\Item\UpdateItemRequest;
 use App\Http\Resources\Api\v1\ItemResource;
