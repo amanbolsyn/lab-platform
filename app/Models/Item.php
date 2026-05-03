@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Http\Filters\Api\V1\QueryFilter;
+use App\Http\Filters\Api\v1\QueryFilter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
